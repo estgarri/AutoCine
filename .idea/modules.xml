@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Docx.iml" filepath="$PROJECT_DIR$/Docx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EjemploJoptionPane/EjemploJoptionPane.iml" filepath="$PROJECT_DIR$/EjemploJoptionPane/EjemploJoptionPane.iml" />
+      <module fileurl="file://$PROJECT_DIR$/July_5_1/July_5_1.iml" filepath="$PROJECT_DIR$/July_5_1/July_5_1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Practica#1/Practica#1.iml" filepath="$PROJECT_DIR$/Practica#1/Practica#1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Semana09_C2_2022/Semana09_C2_2022.iml" filepath="$PROJECT_DIR$/Semana09_C2_2022/Semana09_C2_2022.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Semana10_C2_2022/Semana10_C2_2022.iml" filepath="$PROJECT_DIR$/Semana10_C2_2022/Semana10_C2_2022.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TEST1/TEST1.iml" filepath="$PROJECT_DIR$/TEST1/TEST1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tarea_1_Esteban_Garcia_Rivera/Tarea_1_Esteban_Garcia_Rivera.iml" filepath="$PROJECT_DIR$/Tarea_1_Esteban_Garcia_Rivera/Tarea_1_Esteban_Garcia_Rivera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tarea_2/Tarea_2.iml" filepath="$PROJECT_DIR$/Tarea_2/Tarea_2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Writer/Writer.iml" filepath="$PROJECT_DIR$/Writer/Writer.iml" />
+    </modules>
+  </component>
+</project>
