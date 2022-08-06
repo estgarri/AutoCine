@@ -31,12 +31,12 @@ public class Login
             pass = falcon2.buscarPWD(Dato1,Dato2);
             if (pass.equals("existe"))
             {
-                JOptionPane.showMessageDialog(null, "Login successful!!", "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Login successful!!", "Sistema PetMarket", JOptionPane.INFORMATION_MESSAGE);
                  //role.Role(Dato1);
                  falcon2.getRol(Dato1);
             }
             else {
-                JOptionPane.showMessageDialog(null, "Login unSuccessful!!", "Sistema PetMarket", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Login unSuccessful!!", "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
             }
             //JOptionPane.showMessageDialog(null, "Login unsuccessful!!", "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
         }
