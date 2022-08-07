@@ -26,7 +26,6 @@ public class Login {
 
         int option = JOptionPane.showConfirmDialog(null, fields, "TicoCargas",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, image);
-        JOptionPane.showMessageDialog(null, "Iniciando sesión", "TicoCargas", JOptionPane.INFORMATION_MESSAGE);
 
 
         value1 = field1.getText();
@@ -36,12 +35,17 @@ public class Login {
         pass = falcon.getPassAdmin();
 
         if (option == JOptionPane.OK_OPTION && value1.equals(user) && value2.equals(pass)) {
-            JOptionPane.showMessageDialog(null, "Login successful.", "Sistema PetMarket", JOptionPane.INFORMATION_MESSAGE);
-            menu.menu();
-        } else {
-            JOptionPane.showMessageDialog(null, "Login unSuccessful!!", "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
-
+            //JOptionPane.showMessageDialog(null, "Login successful.", "Sistema PetMarket", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Iniciando sesión", "TicoCargas", JOptionPane.INFORMATION_MESSAGE);
+            menu.menuAdmin();
+        } else if (option == JOptionPane.OK_CANCEL_OPTION){
+            JOptionPane.showMessageDialog(null, "Solicitud de sesión cancelada!!!", "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
         }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Login denagada!!", "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+        }
+
     }
 
         public void terminarMenu ()
