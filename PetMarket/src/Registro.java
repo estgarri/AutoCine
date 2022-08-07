@@ -15,7 +15,6 @@ public class Registro {
     static Menu menu = new Menu();
 
 
-
     public static String[] opciones = {"", "Gerente", "Vendedor"};
     public static String msg = ("Escoja el rol del nuevo usuario: \n" +
             "1. Gerente \n" +
