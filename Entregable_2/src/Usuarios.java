@@ -18,6 +18,7 @@ public class Usuarios {
 
     }
 
+
     public String getNombre() {
         return Nombre;
     }

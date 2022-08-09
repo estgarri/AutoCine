@@ -5,6 +5,9 @@ public class Login {
     public static String user = "", pass = "";
     public static UserAdmin falcon = new UserAdmin();
 
+    static Registro reg = new Registro();
+
+
 
 
     static Menu menu = new Menu();
@@ -38,12 +41,21 @@ public class Login {
             //JOptionPane.showMessageDialog(null, "Login successful.", "Sistema PetMarket", JOptionPane.INFORMATION_MESSAGE);
             JOptionPane.showMessageDialog(null, "Iniciando sesión", "TicoCargas", JOptionPane.INFORMATION_MESSAGE);
             menu.menuAdmin();
-        } else if (option == JOptionPane.OK_CANCEL_OPTION){
-            JOptionPane.showMessageDialog(null, "Solicitud de sesión cancelada!!!", "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+        } else if (option == JOptionPane.OK_OPTION){
+            int result = reg.login(value1, value2);
+            if (result == 1)
+            {
+                menu.menuBrokerCarrier(value1);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Login denagada!!", "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+            }
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Login denagada!!", "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Solicitud de sesión cancelada!!!", "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+
         }
 
     }

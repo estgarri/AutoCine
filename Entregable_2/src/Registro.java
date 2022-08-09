@@ -6,6 +6,7 @@ public class Registro {
 
     public static ArrayList<Usuarios> usuarios = new ArrayList<>();
 
+
     public void nuevoRegistro()
     {
         JTextField field1 = new JTextField();
@@ -43,23 +44,42 @@ public class Registro {
             value3 = field3.getText();
             value4 = field4.getText();
             value5 = field5.getText();
+            try {
+                value1 = Integer.parseInt(field1.getText());
+                value6 = Rol.valueOf((String)JOptionPane.showInputDialog(null, msg, "Pet's Market",
+                        JOptionPane.PLAIN_MESSAGE, imagen, opciones, opciones[0]));
+                usuarios.add(new Usuarios(value1, value2, value3, value6, value4, value5));
+                System.out.println(value1 + value2 + value3 + value4 + value5 + value6);
+
+            } catch (HeadlessException | NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Error! La cantidad tiene formato inválido",
+                        "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+            }
 
 
         }
-        try {
-            value1 = Integer.parseInt(field1.getText());
-            value6 = Rol.valueOf((String)JOptionPane.showInputDialog(null, msg, "Pet's Market",
-                    JOptionPane.PLAIN_MESSAGE, imagen, opciones, opciones[0]));
-            usuarios.add(new Usuarios(value1, value2, value3, value6, value4, value5));
-            System.out.println(value1 + value2 + value3 + value4 + value5 + value6);
-
-        } catch (HeadlessException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error! La cantidad tiene formato inválido",
-                    "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Cancelando registro!!!", "Sistema TicoCArgas - Registro nuevo usuario", JOptionPane.WARNING_MESSAGE);
 
         }
 
 
+
+    }
+
+    public int login(String value1, String value2)
+    {
+        for (int i =0; i < usuarios.size(); i++)
+        {
+            String user = usuarios.get(i).getUsername();
+            String pass = usuarios.get(i).getPassword();
+            if (value1.equals(user) && value2.equals(value2))
+            {
+                return 1;
+            }
+        }
+        return 0;
     }
 
 }
