@@ -67,7 +67,7 @@ public class Menu {
             else
             {
                 System.out.println("Cerrando sessión - Menú Admin...");
-                JOptionPane.showInputDialog(null, "Cerrando sessión - Menú Admin...");
+                JOptionPane.showMessageDialog(null, "Cerrando sessión - Menú Admin...");
                 seguir = false;
             }
 
@@ -132,7 +132,8 @@ public class Menu {
                 }
             }
             else{
-                System.out.println("Cancel");
+                System.out.println("Cancel Menú Broker");
+                JOptionPane.showMessageDialog(null, "Opción cancelada!!!", "Sistema TicoCArgas - Menú Broker", JOptionPane.WARNING_MESSAGE);
                 seguir = false;
             }
         }
