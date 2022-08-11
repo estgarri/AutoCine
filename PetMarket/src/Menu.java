@@ -25,39 +25,46 @@ public class Menu
         while (seguir == true) {
             String res = (String) JOptionPane.showInputDialog(null, msg, "Sistema PetMarket - Menú principal",
                     JOptionPane.PLAIN_MESSAGE, imagen, opciones, opciones[0]);
-            switch (res) {
-                case "1. Usuarios":
-                    System.out.println("Usuarios");
-                    //registro.regUsuario();
-                    //registro.ingresarUsuario();
-                    usermenu.usuariosMenu();
-                    break;
+            if (res != null){
+                switch (res) {
+                    case "1. Usuarios":
+                        System.out.println("Usuarios");
+                        //registro.regUsuario();
+                        //registro.ingresarUsuario();
+                        usermenu.usuariosMenu();
+                        break;
 
-                case "2. Inventario":
-                    System.out.println("Inventario");
-                    inventario.inventarioMenu();
+                    case "2. Inventario":
+                        System.out.println("Inventario");
+                        inventario.inventarioMenu();
 
-                    break;
+                        break;
 
-                case "3. Ventas":
-                    System.out.println("Ventas");
+                    case "3. Ventas":
+                        System.out.println("Ventas");
 
-                    break;
+                        break;
 
-                case "4. Facturas":
-                    System.out.println("Facturas");
+                    case "4. Facturas":
+                        System.out.println("Facturas");
 
-                    break;
+                        break;
 
-                case "5. Clientes":
-                    System.out.println("Clientes");
-                    //registro.consultarRegistro();
-                    break;
+                    case "5. Clientes":
+                        System.out.println("Clientes");
+                        //registro.consultarRegistro();
+                        break;
 
-                case "6. Salir":
-                    System.out.println("Salir");
-                    seguir = false;
-                    break;
+                    case "6. Salir":
+                        System.out.println("Salir");
+                        seguir = false;
+                        break;
+                }
+            }
+            else{
+                System.out.println("Cancel Hello World");
+                JOptionPane.showMessageDialog(null, "Opción cancelada!!!", "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                seguir = false;
             }
 
         }

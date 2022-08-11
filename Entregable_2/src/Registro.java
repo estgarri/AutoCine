@@ -22,8 +22,10 @@ public class Registro {
         ImageIcon image = new ImageIcon("ticoCargas.png");
         String value2, value3, value4, value5;
         int value1 = 0;
+        int z =0;
         Rol value6 = null;
         ImageIcon imagen = new ImageIcon("ticoCargas.png");
+        boolean cont = true;
 
         String msg = ("Escoja el rol del nuevo usuario: \n" +
                 "1. Broker \n" +
@@ -40,7 +42,7 @@ public class Registro {
 
 
 
-        int option = JOptionPane.showConfirmDialog(null, fields, "Sistema TicoCArgas - Registro nuevo usuario",
+        int option = JOptionPane.showConfirmDialog(null, fields, "Sistema TicoCArgas - Registro de usuario nuevo",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, imagen);
 
         if (option == JOptionPane.OK_OPTION) {
@@ -54,7 +56,7 @@ public class Registro {
 
             } catch (HeadlessException | NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Error! Formato inválido para el número de cédula.",
-                        "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                        "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
             }
 
             if (value1 == 0 || value2.equals("") || value3.equals("") || value4.equals("") || value5.equals(""))
@@ -64,11 +66,21 @@ public class Registro {
             }
             else {
                 System.out.println(value6);
-                //value6 = Rol.valueOf((String)JOptionPane.showInputDialog(null, msg, "Pet's Market",
-                        //JOptionPane.PLAIN_MESSAGE, imagen, opciones, opciones[0]));
 
-                int test = JOptionPane.showConfirmDialog(null, "Es el nuevo usuario 'Broker?'", "Sistema TicoCargas - Rol", JOptionPane.YES_NO_OPTION);
-
+                try {
+                    value6 = Rol.valueOf((String) JOptionPane.showInputDialog(null, msg, "Sistema TicoCargas",
+                            JOptionPane.PLAIN_MESSAGE, imagen, opciones, opciones[0]));
+                } catch (NullPointerException e) {
+                    JOptionPane.showMessageDialog(null, "Opción cancelada!!!", "Sistema TicoCargas - Registro de usuario", JOptionPane.WARNING_MESSAGE);
+                    z = 1;
+                }
+                finally {
+                    if (z == 1)
+                    {
+                        cont =false;
+                    }
+                }
+                /*int test = JOptionPane.showConfirmDialog(null, "Es el nuevo usuario 'Broker?'", "Sistema TicoCargas - Rol", JOptionPane.YES_NO_OPTION);
                 if (test == JOptionPane.YES_OPTION)
                 {
                     value6 = Rol.Broker;
@@ -81,22 +93,29 @@ public class Registro {
                 else
                 {
                     value6 = null;
-                }
+                } */
 
-                if (value6.equals(Rol.Broker) || value6.equals(Rol.Carrier)){
-                    usuarios.add(new Usuarios(value1, value2, value3, value6, value4, value5));
-                    System.out.println(value1 + value2 + value3 + value4 + value5 + value6);
+                if (cont == true)
+                {
+                    if (value6.equals(Rol.Broker) || value6.equals(Rol.Carrier)){
+                        usuarios.add(new Usuarios(value1, value2, value3, value6, value4, value5));
+                        System.out.println(value1 + " " + value2 + " " + value3 + " " + value4 + " " + value5 + " " + value6);
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null,"Error! Cancelando registro",
+                                "Sistema PetMarket - Rol del nuevo usuario", JOptionPane.WARNING_MESSAGE);
+                    }
                 }
                 else {
-                    JOptionPane.showMessageDialog(null,"Error! Cancelando registro",
-                            "Sistema PetMarket - Rol del nuevo usuario", JOptionPane.WARNING_MESSAGE);
+                    System.out.println("Cancel in Rol Menu");
                 }
             }
 
         }
         else if (option == JOptionPane.CANCEL_OPTION)
         {
-            JOptionPane.showMessageDialog(null, "Cancelando registro!!!", "Sistema TicoCArgas - Registro nuevo usuario", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Cancelando registro!!!",
+                    "Sistema TicoCArgas - Registro nuevo usuario", JOptionPane.WARNING_MESSAGE);
 
         }
 
