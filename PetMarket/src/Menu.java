@@ -4,6 +4,8 @@ public class Menu
 {
     static Registro registro = new Registro();
     static UsuariosMenu usermenu = new UsuariosMenu();
+
+    static Ventas sale = new Ventas();
     static InicializarInventario inventario = new InicializarInventario();
     public static String[] opciones = { "","1. Usuarios", "2. Inventario",
             "3. Ventas", "4. Facturas", "5. Clientes", "6. Salir"};
@@ -29,20 +31,17 @@ public class Menu
                 switch (res) {
                     case "1. Usuarios":
                         System.out.println("Usuarios");
-                        //registro.regUsuario();
-                        //registro.ingresarUsuario();
                         usermenu.usuariosMenu();
                         break;
 
                     case "2. Inventario":
                         System.out.println("Inventario");
                         inventario.inventarioMenu();
-
                         break;
 
                     case "3. Ventas":
                         System.out.println("Ventas");
-
+                        sale.venticas();
                         break;
 
                     case "4. Facturas":

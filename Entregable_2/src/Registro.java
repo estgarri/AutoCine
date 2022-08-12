@@ -1,5 +1,3 @@
-import com.sun.deploy.security.SelectableSecurityManager;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
