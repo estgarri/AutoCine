@@ -12,6 +12,8 @@ public class Registro {
     public static ArrayList<Usuarios> Arreglo = new ArrayList<>();
     public static ArrayList<RegisterLogin> Arreglo2 = new ArrayList<>();
 
+    public static ArrayList<Clientes> customer = new ArrayList<>();
+
     static Menu menu = new Menu();
 
 
@@ -372,5 +374,82 @@ public class Registro {
             }
 
         }
+    }
+
+    public static void registroCliente()
+    {
+        ImageIcon image2 = new ImageIcon("Roles.png");
+
+        ////////////////////////
+        JTextField field1 = new JTextField();
+        JTextField field2 = new JTextField();
+        JTextField field3 = new JTextField();
+        JTextField field4 = new JTextField();
+
+        ///////////////////////////
+
+        int value1 = 0, verify = 0;
+        String value2, value3, value4;
+        boolean listo = true;
+
+        ///////////////////////////
+
+        Object[] clientes = {
+                "Ingrese la cédula: ", field1,
+                "Ingrese el nombre: ", field2,
+                "Ingrese los apellidos: ", field3,
+                "Ingrese correo electrónico: ", field4,
+        };
+
+
+
+            try {
+                value1 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de cédula del cliente: "));
+                for (int i = 0; i < customer.size(); i++)
+                {
+                    verify = customer.get(i).getCed();
+                    if (value1 == verify) {
+                        JOptionPane.showMessageDialog(null, "Cliente: " + customer.get(i).getNom() + " " + customer.get(i).getApell() + "\n" +
+                                "Cédula: " + customer.get(i).getCed() + "\n" +
+                                "Correo electrónico: " + customer.get(i).getEmail());
+                        listo = false;
+
+                    }
+
+                    }
+
+        } catch (HeadlessException | NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Error! Formato inválido para el número de cédula.",
+                        "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+                listo = false;
+        }
+
+            if ( listo == true) {
+                int option = JOptionPane.showConfirmDialog(null, clientes, "Sistema PetMarket - Registro de clientes",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, image2);
+
+                if (option == JOptionPane.OK_OPTION) {
+                    value2 = field2.getText();
+                    value3 = field3.getText();
+                    value4 = field4.getText();
+
+                    if (value1 == 0 || value2.equals("") || value3.equals("") || value4.equals("")) {
+                        JOptionPane.showMessageDialog(null, "Error! Información incompleta, por favor intente de nuevo.",
+                                "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        customer.add(new Clientes(value1, value2, value3, value4));
+                        int z = customer.size();
+                        --z;
+                        JOptionPane.showMessageDialog(null, "Cliente: " + customer.get(z).getNom() + " " + customer.get(z).getApell() + "\n" +
+                                "Cédula: " + customer.get(z).getCed() + "\n" +
+                                "Correo electrónico: " + customer.get(z).getEmail());
+                    }
+                } else if (option == JOptionPane.CANCEL_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Cancelando registro del cliente!!!",
+                            "Sistema PetMarket - Registro nuevo usuario", JOptionPane.WARNING_MESSAGE);
+                }
+
+            }
+
     }
 }
