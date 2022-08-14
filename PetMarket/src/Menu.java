@@ -41,6 +41,7 @@ public class Menu
 
                     case "3. Ventas":
                         System.out.println("Ventas");
+                        Registro.registroCliente();
                         sale.venticas();
                         break;
 

@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class Ventas {
 
@@ -54,7 +55,7 @@ public class Ventas {
 
                     case "5. Carrito":
                         System.out.println("Carrito - Venticas");
-
+                        Cart.printCarrito();
                         break;
 
                     case "6. Salir":
@@ -72,26 +73,80 @@ public class Ventas {
 
     public void areaAlimentos()
     {
+        ImageIcon imagev = new ImageIcon("carrito.png");
+
+        ////////////////////////
+        JTextField field1 = new JTextField();
+        JTextField field2 = new JTextField();
+
+        ///////////////////////////
+
+        int value1 = 0, verify = 0;
+        String value2, value3, value4;
+        boolean listo = true;
+
+        ///////////////////////////
+
+        Object[] ventas = {
+                "Ingrese el nombre del producto: ", field2,
+                "Ingrese la cantidad a comprar: ", field1
+        };
+
+
         System.out.println("Área de alimentos - Ventas");
-        StringBuilder cadena = new StringBuilder();
+        //StringBuilder cadena = new StringBuilder();
+        String cadena = "";
 
         for (int i = 0; i < inventario.alimentos.size(); i++) {
-            String codigoT = inventario.alimentos.get(i).getCodigo();
+            //String codigoT = inventario.alimentos.get(i).getCodigo();
             String nombreT = inventario.alimentos.get(i).getNombre();
             String tipoT = inventario.alimentos.get(i).getTipoAnimal();
             double precioT = inventario.alimentos.get(i).getPrecio();
             int canT = inventario.alimentos.get(i).getCantidad();
 
-            cadena.append("Codigo: ").append(codigoT).append("     | Nombre: ").append(nombreT).append("     | Tipo: ").append(tipoT)
-                    .append("     | Precio: ").append(precioT).append("     | Cantidad: ").append(canT).append("\n");
+            //cadena.append("Codigo: ").append(codigoT).append("     | Nombre: ").append(nombreT).append("     | Tipo: ").append(tipoT)
+                    //.append("     | Precio: ").append(precioT).append("     | Cantidad: ").append(canT).append("\n");
 
-            /* cadena += ("Codigo: " + codigoT + "     | Nombre: " + nombreT + "     | Tipo: " + tipoT +
-                                    "     | Precio: " + precioT + "     | Cantidad: " + canT + "\n"); */
+            cadena += ("Nombre: " + nombreT + "     | Tipo: " + tipoT +
+                    "     | Precio: " + precioT + "     | Cantidad en inventario: " + canT + "\n");
 
         }
-        JOptionPane.showMessageDialog(null, cadena.toString());
+        JOptionPane.showMessageDialog(null, cadena);
 
-        Registro.registroCliente();
+        boolean cont = true;
+        //JOptionPane.showMessageDialog(null, "Se solicitarán los datos del usuario " + (i + 1));
+
+        int option = JOptionPane.showConfirmDialog(null, ventas, "Sistema PetMarket - Agregar al carrito",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, imagev);
+
+        if (option == JOptionPane.OK_OPTION) {
+            value2 = field2.getText();
+
+            try {
+                value1 = Integer.parseInt(field1.getText());
+
+            } catch (HeadlessException | NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Error! Formato inválido para el número de cédula.",
+                        "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+                cont = false;
+            }
+
+            if (value1 == 0 || value2.equals("")) {
+                JOptionPane.showMessageDialog(null, "Error! Información incompleta, por favor intente de nuevo.",
+                        "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+            } else {
+                System.out.println(value2);
+                Cart.addCartAl(value2, value1);
+                }
+
+            } else if (option == JOptionPane.CANCEL_OPTION) {
+            JOptionPane.showMessageDialog(null, "Regresando al menú de ventas!!!",
+                    "Sistema PetMarket - Registro nuevo usuario", JOptionPane.WARNING_MESSAGE);
+        }
+
+
+
+        //Registro.registroCliente();
 
 
     }
