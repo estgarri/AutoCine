@@ -30,11 +30,11 @@ public class InicializarInventario {
     public void inicializar()
     {
         String cadena = "";
-        alimentos.add(new Alimentos("AL-COD-1" , "Cat_Food", "Felino", 1.25,5));
-        alimentos.add(new Alimentos("AL-COD-2", "Dog_Food", "Canino", 2.50,5));
-        alimentos.add(new Alimentos("AL-COD-3", "Bird_Food", "Aviario", 1.15,5));
-        alimentos.add(new Alimentos("AL-COD-4", "Horse_Food", "Equino", 10.35,5));
-        alimentos.add(new Alimentos("AL-COD-5", "COW_Food", "Bovino", 15.00,5));
+        alimentos.add(new Alimentos("AL-COD-1" , "Cat Food", "Felino", 1.25,5));
+        alimentos.add(new Alimentos("AL-COD-2", "Dog Food", "Canino", 2.50,5));
+        alimentos.add(new Alimentos("AL-COD-3", "Bird Food", "Aviario", 1.15,5));
+        alimentos.add(new Alimentos("AL-COD-4", "Horse Food", "Equino", 10.35,5));
+        alimentos.add(new Alimentos("AL-COD-5", "Cow Food", "Bovino", 15.00,5));
 
         articulos.add(new Articulos("AR-COD-1", "Ratón de hule", "Felino", 4.25,5));
         articulos.add(new Articulos("AR-COD-2", "Bolita", "Canino", 4.50,5));

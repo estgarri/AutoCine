@@ -430,6 +430,7 @@ public class Registro {
                 JOptionPane.showMessageDialog(null, "Error! Formato inválido para el número de cédula.",
                         "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
                 listo = false;
+                return 0;
         }
 
             if ( listo == true) {
@@ -446,6 +447,7 @@ public class Registro {
                     if (value1 == 0 || value2.equals("") || value3.equals("") || value4.equals("")) {
                         JOptionPane.showMessageDialog(null, "Error! Información incompleta, por favor intente de nuevo.",
                                 "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+                        return 0;
                     } else {
                         customer.add(new Clientes(value1, value2, value3, value4));
                         Cart.addClienteCarrito(value2, value3, value4, value1);
@@ -463,6 +465,6 @@ public class Registro {
 
             }
 
-        return value1;
+        return 2;
     }
 }

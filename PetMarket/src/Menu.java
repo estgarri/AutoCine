@@ -40,9 +40,13 @@ public class Menu
                         break;
 
                     case "3. Ventas":
+                        int sigo;
                         System.out.println("Ventas");
-                        Registro.registroCliente();
-                        sale.venticas();
+                        sigo = Registro.registroCliente();
+                        if (sigo == 2)
+                        {
+                            sale.venticas();
+                        }
                         break;
 
                     case "4. Facturas":

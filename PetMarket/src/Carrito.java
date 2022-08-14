@@ -3,13 +3,23 @@ public class Carrito {
     public String Articulos, Email;
     public int Cedula, Cantidad;
 
-    public double precio;
+    public double Precio;
 
-    public Carrito(String articulos, int cant) {
+    public double Kg;
+
+    public Carrito(String articulos, int cant, double precio, double kg) {
         this.Articulos = articulos;
         this.Cantidad = cant;
+        this.Precio = precio;
+        this.Kg = kg;
+    }
+    public double getKg() {
+        return Kg;
     }
 
+    public void setKg(double kg) {
+        Kg = kg;
+    }
     public String getArticulos() {
         return Articulos;
     }
@@ -35,11 +45,11 @@ public class Carrito {
     }
 
     public double getPrecio() {
-        return precio;
+        return Precio;
     }
 
     public void setPrecio(double precio) {
-        this.precio = precio;
+        this.Precio = precio;
     }
 
 }
