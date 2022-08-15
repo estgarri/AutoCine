@@ -16,6 +16,8 @@ public class Registro {
 
     static Menu menu = new Menu();
 
+    static Object[] clientesCambio;
+
 
     public static String[] opciones = {"", "Gerente", "Vendedor"};
     public static String msg = ("Escoja el rol del nuevo usuario: \n" +
@@ -182,8 +184,9 @@ public class Registro {
                     }
                     else
                     {
-                        JOptionPane.showMessageDialog(null, "Menú del Vendedor!!", "Sistema PetMarket", JOptionPane.INFORMATION_MESSAGE);
-                        //menu.menuVendedor();
+                        System.out.println("Menú del Vendedor!!");
+                        //JOptionPane.showMessageDialog(null, "Menú del Vendedor!!", "Sistema PetMarket", JOptionPane.INFORMATION_MESSAGE);
+                        menu.menuVendedor();
                     }
                 }
             }
@@ -376,7 +379,7 @@ public class Registro {
         }
     }
 
-    public static int registroCliente()
+    public static int registroCliente(int cual)
     {
         ImageIcon image2 = new ImageIcon("Roles.png");
 
@@ -399,11 +402,14 @@ public class Registro {
                 "Ingrese los apellidos: ", field3,
                 "Ingrese correo electrónico: ", field4,
         };
-
-        JOptionPane.showMessageDialog(null, "Para el inicio de cualquier venta, el cliente debe estar registrado debidamente, en la siguiente  \n" +
-                        "ventana se verificará si el cliente está registrado por medio de la cédula de identidad. ",
-                "Sistema PetMarket - Ventas", JOptionPane.INFORMATION_MESSAGE);
-
+        if (cual == 1) {
+            JOptionPane.showMessageDialog(null, "Para el inicio de cualquier venta, el cliente debe estar registrado debidamente, en la siguiente  \n" +
+                            "ventana se verificará si el cliente está registrado por medio de la cédula de identidad. ",
+                    "Sistema PetMarket - Ventas", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Para el inicio de cualquier venta, el cliente debe estar registrado debidamente, en la siguiente  \n" +
+                    "ventana se procederá al registro del cliente");
+        }
             try {
                 value1 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de cédula del cliente: "));
                 for (int i = 0; i < customer.size(); i++)
@@ -434,8 +440,11 @@ public class Registro {
         }
 
             if ( listo == true) {
-                JOptionPane.showMessageDialog(null,"El cliente no se encuentra registrado, se procederá a la ventana de registro de clientes.");
 
+                if (cual == 1) {
+                    JOptionPane.showMessageDialog(null, "El cliente no se encuentra registrado, se procederá a la ventana de registro de clientes.");
+
+                }
                 int option = JOptionPane.showConfirmDialog(null, clientes, "Sistema PetMarket - Registro de clientes",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, image2);
 
@@ -466,5 +475,117 @@ public class Registro {
             }
 
         return 2;
+    }
+
+    public static void modifyCliente()
+    {
+        ImageIcon image2 = new ImageIcon("Roles.png");
+
+        ////////////////////////
+        JTextField field1 = new JTextField();
+        JTextField field2 = new JTextField();
+        JTextField field3 = new JTextField();
+        JTextField field4 = new JTextField();
+
+        ///////////////////////////
+
+        String nom, apell, correo;
+        /*static Object[] clientesCambio = {
+                nom + "Cambio de nombre: ", field1,
+                "Cambio de apellidos: ", field2,
+                "Cambio de correo electrónico: ", field3,
+        };*/
+
+        int value1 = 0, verify = 0;
+
+        boolean listo = true, reg = true;
+
+        String value2 = "1", value3 = "1", value4 = "1";
+
+        if ( listo == true) {
+            try {
+                value1 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de cédula del cliente: "));
+                for (int i = 0; i < customer.size(); i++) {
+                    verify = customer.get(i).getCed();
+                    if (value1 == verify) {
+                        reg= false;
+                        nom = customer.get(i).getNom();
+                        apell = customer.get(i).getApell();
+                        correo = customer.get(i).getEmail();
+                        clientesCambio = new Object[]{
+                                "Nombre actual ("+ nom +")" + " Cambio de nombre: ", field2,
+                                "Apellidos actuales ("+ apell +")" + " Cambio de apellidos: ", field3,
+                                "Correo electrónical actual ("+ correo +")" + " Cambio de correo electrónico: ", field4,
+                        };
+
+                        int option = JOptionPane.showConfirmDialog(null, clientesCambio, "Sistema PetMarket - Registro de clientes",
+                                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, image2);
+
+                        if (option == JOptionPane.OK_OPTION) {
+                            value2 = field2.getText();
+                            value3 = field3.getText();
+                            value4 = field4.getText();
+
+                            int go = 0;
+
+                            if (!value2.equals(""))
+                            {
+                                customer.get(i).setNom(value2);
+                                go = 1;
+                            }
+
+                            if (!value3.equals(""))
+                            {
+                                customer.get(i).setApell(value3);
+                                go = 1;
+                            }
+
+                            if (!value4.equals(""))
+                            {
+                                customer.get(i).setEmail(value4);
+                                go = 1;
+                            }
+                            value2 = "1"; value3 = "1"; value4 = "1";
+
+                            if (go == 1){
+                                JOptionPane.showMessageDialog(null,"Cambios registrados exitosamente.");
+                            }
+                            else {
+                                JOptionPane.showMessageDialog(null,"No hubo cambios.");
+                            }
+
+                        } else if (option == JOptionPane.CANCEL_OPTION) {
+                        JOptionPane.showMessageDialog(null, "Cancelando registro del cliente!!!",
+                                "Sistema PetMarket - Registro nuevo usuario", JOptionPane.WARNING_MESSAGE);
+                        reg = false;
+                        }
+
+                    }
+                }
+
+            } catch (HeadlessException | NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Error! Formato inválido para el número de cédula.",
+                        "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                listo = false;
+            }
+        }
+        if (reg == true){
+            JOptionPane.showMessageDialog(null, "Cliente no está registrado.");
+            int option2 = JOptionPane.showConfirmDialog(null,"Cliente no está registrado, desea registrar al cliente?",
+                    "Sistema PetMarket - Resgistro Clientes", JOptionPane.YES_NO_OPTION);
+
+            if (option2 == JOptionPane.YES_OPTION)
+            {
+                int cual = 2;
+                registroCliente(cual);
+                JOptionPane.showMessageDialog(null,"Saliendo de la sección de registro de clientes");
+            } else{
+                JOptionPane.showMessageDialog(null,"Saliendo de la sección de registro de clientes");
+            }
+
+        }
+
+
+
     }
 }

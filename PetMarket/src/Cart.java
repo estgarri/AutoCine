@@ -229,6 +229,7 @@ public class Cart {
                 "Compra Realizada \n" +
                 "__________________________________ \n" +
                 "Articulo      Cantidad      Subtotal \n");
+        
         for (int i = 0; i < carrito.size(); i++)
         {
             double precio = carrito.get(i).getPrecio();
