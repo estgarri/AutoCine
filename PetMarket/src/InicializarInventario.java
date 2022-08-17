@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class InicializarInventario {
@@ -29,6 +32,11 @@ public class InicializarInventario {
 
     public void inicializar()
     {
+        try (BufferedWriter cargas = new BufferedWriter(new FileWriter("orders.txt")))
+        {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String cadena = "";
         alimentos.add(new Alimentos("AL-COD-1" , "Cat Food", "Felino", 1.25,5));
         alimentos.add(new Alimentos("AL-COD-2", "Dog Food", "Canino", 2.50,5));

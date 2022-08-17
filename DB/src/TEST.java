@@ -11,7 +11,7 @@ public class TEST {
             Connection conn = null;
             try {
                 // db parameters
-                String url = "jdbc:sqlite:C:/sqlite/TicoCargas-Java.db";
+                String url = "jdbc:sqlserver://localhost;integratedSecurity=true;";
                 // create a connection to the database
                 conn = DriverManager.getConnection(url);
 

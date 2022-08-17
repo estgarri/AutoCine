@@ -24,6 +24,7 @@ public class Ventas {
         System.out.println("Venticas");
         ImageIcon imagen = new ImageIcon("pet.png");
         seguir = true;
+        int option2 = 0;
 
 
         while (seguir == true) {
@@ -57,7 +58,14 @@ public class Ventas {
 
                     case "5. Carrito":
                         System.out.println("Carrito - Venticas");
-                        Cart.printCarrito();
+                        option2 = Cart.printCarrito();
+
+                        if (option2 == 1)
+                        {
+                            seguir = false;
+                            break;
+                        }
+
                         break;
 
                     case "6. Salir":

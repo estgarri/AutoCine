@@ -1,4 +1,9 @@
+import javax.swing.*;
+import java.io.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Cart {
 
@@ -10,7 +15,7 @@ public class Cart {
     public static void addCartAl(String nombre, int cantidad)
     {
 
-        int cant = cantidad;
+        int cant = cantidad, vamos = 0;
         boolean test = true;
         for (int i = 0; i < InicializarInventario.alimentos.size(); i++)
         {
@@ -20,6 +25,9 @@ public class Cart {
                 if (cant > inventario)
                 {
                     System.out.println("ERROR!!" + inventario);
+                    JOptionPane.showMessageDialog(null, "Error!!, el inventario disponible es: " + inventario,
+                            "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+                    vamos = 1;
                     test = false;
                 }
                 else{
@@ -31,6 +39,7 @@ public class Cart {
                         value.setCantidad(temp);
                         inventario -= cant;
                         InicializarInventario.alimentos.get(i).setCantidad(inventario);
+                        vamos = 1;
                         test = false;
                     }
                 }
@@ -51,16 +60,22 @@ public class Cart {
                 carrito.add(new Carrito(articulos, cant, precio, kg));
                 System.out.println("Carrito - " + articulos + " - " + cant + " - " +
                         InicializarInventario.alimentos.get(i).getCantidad() + " - " + precio);
+                vamos = 1;
                 }
             }
 
+        }
+        if (vamos == 0)
+        {
+            JOptionPane.showMessageDialog(null, "Error! Nombre de producto.",
+                    "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
         }
     }
 
     public static void addCartAr(String nombre, int cantidad)
     {
 
-        int cant = cantidad;
+        int cant = cantidad, vamos = 0;
         boolean test = true;
         for (int i = 0; i < InicializarInventario.articulos.size(); i++)
         {
@@ -70,6 +85,9 @@ public class Cart {
                 if (cant > inventario)
                 {
                     System.out.println("ERROR!!" + inventario);
+                    JOptionPane.showMessageDialog(null, "Error!!, el inventario disponible es: " + inventario,
+                            "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+                    vamos = 1;
                     test = false;
                 }
                 else {
@@ -81,6 +99,7 @@ public class Cart {
                             value.setCantidad(temp);
                             inventario -= cant;
                             InicializarInventario.articulos.get(i).setCantidad(inventario);
+                            vamos = 1;
                             test = false;
                         }
                     }
@@ -103,15 +122,21 @@ public class Cart {
                         carrito.add(new Carrito(articulos, cant, precio, kg));
                         System.out.println("Carrito - " + articulos + " - " + cant + " - " +
                                 InicializarInventario.articulos.get(i).getCantidad() + " - " + precio);
+                        vamos = 1;
                     }
             }
+        }
+        if (vamos == 0)
+        {
+            JOptionPane.showMessageDialog(null, "Error! Nombre de producto.",
+                    "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
         }
     }
 
     public static void addCartMed(String nombre, int cantidad)
     {
 
-        int cant = cantidad;
+        int cant = cantidad, vamos = 0;
         boolean test = true;
         for (int i = 0; i < InicializarInventario.medicamentos.size(); i++)
         {
@@ -121,6 +146,9 @@ public class Cart {
                 if (cant > inventario)
                 {
                     System.out.println("ERROR!!" + inventario);
+                    JOptionPane.showMessageDialog(null, "Error!!, el inventario disponible es: " + inventario,
+                            "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+                    vamos = 1;
                     test = false;
                 }
                 else {
@@ -133,6 +161,7 @@ public class Cart {
                             inventario -= cant;
                             InicializarInventario.medicamentos.get(i).setCantidad(inventario);
                             test = false;
+                            vamos = 1;
                         }
                     }
                 }
@@ -154,15 +183,21 @@ public class Cart {
                     carrito.add(new Carrito(articulos, cant, precio, kg));
                     System.out.println("Carrito - " + articulos + " - " + cant + " - " +
                             InicializarInventario.medicamentos.get(i).getCantidad() + " - " + precio);
+                    vamos = 1;
                 }
             }
+        }
+        if (vamos == 0)
+        {
+            JOptionPane.showMessageDialog(null, "Error! Nombre de producto.",
+                    "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
         }
     }
 
     public static void addCartGra(String nombre, double cantidad)
     {
 
-        double cant = cantidad, inventario;
+        double cant = cantidad, inventario, vamos = 0;
         boolean test = true;
         for (int i = 0; i < InicializarInventario.granel.size(); i++)
         {
@@ -172,6 +207,9 @@ public class Cart {
                 if (cant > inventario)
                 {
                     System.out.println("ERROR!!" + inventario);
+                    JOptionPane.showMessageDialog(null, "Error!!, el inventario disponible es: " + inventario + " kgs",
+                            "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+                    vamos = 1;
                     test = false;
                 }
                 else {
@@ -184,6 +222,7 @@ public class Cart {
                             inventario -= cant;
                             InicializarInventario.granel.get(i).setKilos(inventario);
                             test = false;
+                            vamos = 1;
                         }
                     }
                 }
@@ -204,9 +243,15 @@ public class Cart {
 
                     carrito.add(new Carrito(articulos, testy, precio, cant));
                     System.out.println("Carrito - " + articulos + " - " + cant + " - " +
-                            InicializarInventario.medicamentos.get(i).getCantidad() + " - " + precio);
+                            InicializarInventario.granel.get(i).getKilos() + " - " + precio);
+                    vamos = 1;
                 }
             }
+        }
+        if (vamos == 0)
+        {
+            JOptionPane.showMessageDialog(null, "Error! Nombre de producto.",
+                    "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -216,12 +261,16 @@ public class Cart {
         clientCarri.add(new ClienteCarrito(Nombre,Apellidos, correo, Cedula));
     }
 
-    public static void printCarrito()
+    public static int printCarrito()
     {
-        String cadena = "", cliente = "";
+        DecimalFormat df = new DecimalFormat("0.00");
+        String cadena = "", cliente = "", test= "";
         double subtotal2 = 0.0;
 
-        cliente = ("Información Cliente: \n" +
+        cliente = ("\n" +
+                "\n" +
+                "\n" +
+                "Información Cliente: \n" +
                 "__________________________________ \n" +
                 "Nombre Cliente: " + clientCarri.get(0).getNombre() + " " + clientCarri.get(0).getApellidos() + "\n" +
                 "Cedula: " + clientCarri.get(0).getCedula() + "\n" +
@@ -237,21 +286,61 @@ public class Cart {
                 double cant = carrito.get(i).getCantidad();
                 double subtotal = (precio * cant);
                 subtotal2 += subtotal;
-                cadena += (carrito.get(i).getArticulos() + "        " + carrito.get(i).getCantidad() + "            " + subtotal + "\n");
+                String strtemp = carrito.get(i).getArticulos();
+                test = (String) strtemp.subSequence(0,5);
+                //cadena += (carrito.get(i).getArticulos() + "        " + carrito.get(i).getCantidad() + "            " + subtotal + "\n");
+                cadena += (test + "          " + carrito.get(i).getCantidad() + "            " + df.format(subtotal) + "\n");
             }
             else {
                 double cant = carrito.get(i).getKg();
                 double subtotal = (precio * cant);
                 subtotal2 += subtotal;
-                cadena += (carrito.get(i).getArticulos() + "        " + carrito.get(i).getKg() + "            " + subtotal + "\n");
+                cadena += (carrito.get(i).getArticulos() + "         " + carrito.get(i).getKg() + "             " + df.format(subtotal) + "\n");
             }
         }
         double iva = subtotal2 * 0.13;
         double total = subtotal2 + iva;
-        String imprimir = ("IVA Aplicado:                 " + iva + "\n" +
-                "Total facturado:              " + total);
+        String imprimir = ("__________________________________________\n" +
+                "IVA Aplicado:                 " + df.format(iva) + "\n" +
+                "Total facturado:              " + df.format(total) +
+                "\n" + "\n");
 
         System.out.println(cliente + cadena + imprimir);
+
+        String printing = cliente + cadena + imprimir;
+
+        JOptionPane.showMessageDialog(null, printing,"Sistema TicoCargas - Carrito de compras", JOptionPane.WARNING_MESSAGE);
+
+        int option = JOptionPane.showConfirmDialog(null,"Click yes for checkout or no to continue shopping. \n" + "\n" + printing,
+                "Sistema PetMarket - Checkout", JOptionPane.YES_NO_OPTION);
+
+        if (option == JOptionPane.YES_OPTION)
+        {
+            File file = new File("orders.txt");
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                try {
+                    String st;
+                    while ((st = br.readLine()) != null) {
+                        System.out.println(st);
+                        //JOptionPane.showMessageDialog(null,st);
+                    }   } catch (IOException ex) {
+                    Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try (BufferedWriter cargas = new BufferedWriter(new FileWriter("orders.txt",true)))
+            {
+
+                cargas.write("\n" + printing);
+                borrarCarrito();
+                return 1;
+            } catch (IOException ex) {
+                Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return 0;
 
     }
 
