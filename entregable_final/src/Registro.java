@@ -63,23 +63,39 @@ public class Registro {
             {
                 JOptionPane.showMessageDialog(null,"Error! Información incompleta, por favor intente de nuevo.",
                         "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+                cont = false;
             }
             else {
-                System.out.println(value6);
+                System.out.println(value1);
 
-                try {
-                    value6 = Rol.valueOf((String) JOptionPane.showInputDialog(null, msg, "Sistema TicoCargas",
-                            JOptionPane.PLAIN_MESSAGE, imagen, opciones, opciones[0]));
-                } catch (NullPointerException e) {
-                    JOptionPane.showMessageDialog(null, "Opción cancelada!!!", "Sistema TicoCargas - Registro de usuario", JOptionPane.WARNING_MESSAGE);
-                    z = 1;
-                }
-                finally {
-                    if (z == 1)
-                    {
-                        cont =false;
+                for (int i = 0; i < Registro.usuarios.size(); i++) {
+                    if (value1 == Registro.usuarios.get(i).getCedula()) {
+                        JOptionPane.showMessageDialog(null, "Error! Cédula ya se encuentra registrada.",
+                                "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+                        cont = false;
+
+                    } else if (Registro.usuarios.get(i).getUsername().equals(value4)) {
+                        JOptionPane.showMessageDialog(null, "Error! Usuario ya se encuentra registrado.",
+                                "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+                        cont = false;
                     }
                 }
+
+                if (cont == true) {
+                    try {
+                        value6 = Rol.valueOf((String) JOptionPane.showInputDialog(null, msg, "Sistema TicoCargas",
+                                JOptionPane.PLAIN_MESSAGE, imagen, opciones, opciones[0]));
+                    } catch (NullPointerException e) {
+                        JOptionPane.showMessageDialog(null, "Opción cancelada!!!", "Sistema TicoCargas - Registro de usuario", JOptionPane.WARNING_MESSAGE);
+                        z = 1;
+                    } finally {
+                        if (z == 1) {
+                            cont = false;
+                        }
+                    }
+                }
+            }
+
                 /*int test = JOptionPane.showConfirmDialog(null, "Es el nuevo usuario 'Broker?'", "Sistema TicoCargas - Rol", JOptionPane.YES_NO_OPTION);
                 if (test == JOptionPane.YES_OPTION)
                 {
@@ -110,8 +126,6 @@ public class Registro {
                     System.out.println("Cancel in Rol Menu");
                 }
             }
-
-        }
         else if (option == JOptionPane.CANCEL_OPTION)
         {
             JOptionPane.showMessageDialog(null, "Cancelando registro!!!",

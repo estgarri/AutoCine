@@ -79,17 +79,18 @@ public class Menu {
         for (int i = 0; i < Registro.usuarios.size(); i++) {
             if (Value1.equals(Registro.usuarios.get(i).getUsername())) {
                 rol = Registro.usuarios.get(i).getRol();
+                int id = Registro.usuarios.get(i).getCedula();
                 if (rol.equals(Rol.Broker)) {
-                    broker();
+                    broker(id);
                 } else {
-                    carrier();
+                    carrier(id);
                 }
             }
 
         }
     }
 
-    public void broker() {
+    public void broker(int id) {
         System.out.println("Broker's menu");
 
         String[] opciones = {"", "1. Ofertas aceptadas", "2. Cotizar",
@@ -116,12 +117,12 @@ public class Menu {
 
                     case "2. Cotizar":
                         System.out.println("Cotizar");
-
+                        Broker.cotizar(id);
                         break;
 
                     case "3. Aceptar o rechazar cotizaciones":
                         System.out.println("Aceptar o rechazar cotizaciones");
-
+                        Broker.aceptarRechazar(id);
                         break;
 
                     case "4. Salir":
@@ -139,20 +140,54 @@ public class Menu {
         }
     }
 
-    public void carrier() {
+    public void carrier(int id) {
         System.out.println("Carrier's menu");
 
         String[] opciones = {"", "1. Ofertas aceptadas", "2. Ofertas pendientes",
-                "3. Cotizar", "4. Salir"};
+                "3. Presentar oferta", "4. Salir"};
 
         String msg = ("1. Ofertas aceptadas. \n" +
                 "2. Ofertas pendientes. \n" +
-                "3. Cotizar. \n" +
+                "3. Presentar oferta. \n" +
                 "4. Salir.");
 
         boolean seguir = true;
 
         ImageIcon image = new ImageIcon("ticoCargas.png");
+        while (seguir == true) {
+            String res = (String) JOptionPane.showInputDialog(null, msg, "Sistema TicoCargas - Carrier Broker",
+                    JOptionPane.PLAIN_MESSAGE, image, opciones, opciones[0]);
+            if (res != null){
+                switch (res) {
+                    case "1. Ofertas aceptadas":
+                        System.out.println("Carrier Ofertas aceptadas");
+
+                        break;
+
+                    case "2. Ofertas pendientes":
+                        System.out.println("Carrier Ofertas pendientes");
+                        Carrier.ofertasPendientes(id);
+                        break;
+
+                    case "3. Presentar oferta":
+                        System.out.println("Presentar oferta");
+                        Carrier.presentarOferta(id);
+
+                        break;
+
+                    case "4. Salir":
+                        System.out.println("Salir");
+                        seguir = false;
+                        break;
+
+                }
+            }
+            else{
+                System.out.println("Cancel Menú Broker");
+                JOptionPane.showMessageDialog(null, "Opción cancelada!!!", "Sistema TicoCArgas - Menú Broker", JOptionPane.WARNING_MESSAGE);
+                seguir = false;
+            }
+        }
     }
 }
 
