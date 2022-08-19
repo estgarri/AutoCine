@@ -4,35 +4,17 @@
 
 Información Cliente: 
 __________________________________ 
-Nombre Cliente: 1 1
+Nombre Cliente: Amanda Amanda
 Cedula: 1234
-Correo electrónico: 1
+Correo electrónico: amanda@gmail.com
 
 
 Compra Realizada 
 __________________________________ 
 Articulo      Cantidad      Subtotal 
-Churu         1.25             16.69
+Cat F          3            3.75
+Bolit          1            4.50
 __________________________________________
-IVA Aplicado:                 2.17
-Total facturado:              18.86
-
-
-
-
-
-Información Cliente: 
-__________________________________ 
-Nombre Cliente: 2 2
-Cedula: 1
-Correo electrónico: 2
-
-
-Compra Realizada 
-__________________________________ 
-Articulo      Cantidad      Subtotal 
-Tweet          2            6.50
-__________________________________________
-IVA Aplicado:                 0.84
-Total facturado:              7.34
+IVA Aplicado:                 1.07
+Total facturado:              9.32
 

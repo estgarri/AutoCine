@@ -214,30 +214,24 @@ public class Registro {
     public void modificarUsuario() {
         int j = 0;
         String username = JOptionPane.showInputDialog("Ingrese el usuario a modificar:");
-        if (username != null)
-        {
+        if (username != null) {
             j = Arreglo2.size();
             int k = 0;
-            for (int i=0; i < Arreglo2.size(); i++ )
-            {
+            for (int i = 0; i < Arreglo2.size(); i++) {
                 String findUser = Arreglo2.get(i).getUsername();
-                if(username.equals(findUser))
-                {
+                if (username.equals(findUser)) {
                     System.out.println("Modificando");
                     modificarMenu(i);
                     break;
                 }
                 k = i + 2;
             }
-            if (k > j)
-            {
+            if (k > j) {
                 JOptionPane.showMessageDialog(null, "Error! - Usuario no es válido.", "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+            } else {
+                System.out.println("Shutting down...");
+                JOptionPane.showMessageDialog(null, "Cerrando...", "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
             }
-        }
-        else
-        {
-            System.out.println("Shutting down...");
-            JOptionPane.showMessageDialog(null, "Cerrando...", "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -512,7 +506,7 @@ public class Registro {
                         nom = customer.get(i).getNom();
                         apell = customer.get(i).getApell();
                         correo = customer.get(i).getEmail();
-                        clientesCambio = new Object[]{
+                            clientesCambio = new Object[]{
                                 "Nombre actual ("+ nom +")" + " Cambio de nombre: ", field2,
                                 "Apellidos actuales ("+ apell +")" + " Cambio de apellidos: ", field3,
                                 "Correo electrónical actual ("+ correo +")" + " Cambio de correo electrónico: ", field4,
