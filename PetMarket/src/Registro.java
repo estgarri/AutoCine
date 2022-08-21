@@ -579,7 +579,5 @@ public class Registro {
 
         }
 
-
-
     }
 }

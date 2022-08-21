@@ -9,7 +9,7 @@ public class Registro {
     public static ArrayList<Usuarios> usuarios = new ArrayList<>();
 
 
-    public void nuevoRegistro()
+    public static void nuevoRegistro()
     {
         JTextField field1 = new JTextField();
         JTextField field2 = new JTextField();

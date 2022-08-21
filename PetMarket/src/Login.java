@@ -16,7 +16,7 @@ public class Login
         ImageIcon imagen = new ImageIcon("pet.png");
 
         JTextField field1 = new JTextField();
-        JTextField field2 = new JTextField();
+        JTextField field2 = new JPasswordField();
 
         String Dato1 = "", Dato2 = "";
 

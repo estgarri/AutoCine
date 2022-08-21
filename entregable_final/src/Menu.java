@@ -32,12 +32,12 @@ public class Menu {
                 switch (res) {
                     case "1. Usuarios nuevos":
                         System.out.println("Usuarios nuevos");
-                        registro.nuevoRegistro();
-
+                        Registro.nuevoRegistro();
                         break;
 
                     case "2. Modificar usuarios":
                         System.out.println("Modificar usuarios");
+                        Administration.modificarUsuarios();
 
                         break;
 

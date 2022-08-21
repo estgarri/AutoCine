@@ -16,7 +16,7 @@ public class Login {
 
     public void verification() {
         JTextField field1 = new JTextField();
-        JTextField field2 = new JTextField();
+        JTextField field2 = new JPasswordField();
 
         Object[] fields = {
                 "Ingrese el usuario: ", field1,
