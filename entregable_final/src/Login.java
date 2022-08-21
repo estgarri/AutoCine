@@ -60,39 +60,52 @@ public class Login {
 
     }
 
-        public void terminarMenu ()
-        {
-            boolean seguir = true;
-            String[] opciones = {"", "1. Login", "2. Shutdown TicoCargas system"};
+    public void terminarMenu () {
+        boolean seguir = true;
+        String[] opciones = {"", "1. Login", "2. Shutdown TicoCargas system"};
 
-            String msg = ("1. Login. \n" +
-                    "2. Shutdown TicoCargas system. \n");
-            ImageIcon imagen = new ImageIcon("ticoCargas.png");
+        String msg = ("1. Login. \n" +
+                "2. Shutdown TicoCargas system. \n");
+        ImageIcon imagen = new ImageIcon("ticoCargas.png");
 
-            while (seguir) {
-                String res = (String) JOptionPane.showInputDialog(null, msg, "Sistema TicoCargas",
-                        JOptionPane.PLAIN_MESSAGE, imagen, opciones, opciones[0]);
+        while (seguir) {
+            String res = (String) JOptionPane.showInputDialog(null, msg, "Sistema TicoCargas",
+                    JOptionPane.PLAIN_MESSAGE, imagen, opciones, opciones[0]);
 
-                if (res != null){
-                    switch (res) {
-                        case "1. Login":
-                            System.out.println("Loading system....");
-                            verification();
-                            break;
+            if (res != null) {
+                switch (res) {
+                    case "1. Login":
+                        System.out.println("Loading system....");
+                        verification();
+                        break;
 
-                        case "2. Shutdown TicoCargas system":
-                            System.out.println("Shutting down...");
-                            seguir = false;
-                            break;
+                    case "2. Shutdown TicoCargas system":
+                        System.out.println("Shutting down...");
+                        seguir = false;
+                        break;
 
-                    }
                 }
-                else{
-                    System.out.println("Shutting down...");
-                    JOptionPane.showMessageDialog(null, "Shutting down!!!", "Sistema TicoCArgas", JOptionPane.WARNING_MESSAGE);
-                    seguir = false;
-                }
+            } else {
+                System.out.println("Shutting down...");
+                JOptionPane.showMessageDialog(null, "Shutting down!!!", "Sistema TicoCArgas", JOptionPane.WARNING_MESSAGE);
+                seguir = false;
             }
         }
+    }
+
+   public static void inicializar()
+   {
+       int ced = 123;
+
+       Registro.usuarios.add(new Usuarios(123, "Test1", "Broker1", Rol.Broker, "1", "1"));
+       Registro.usuarios.add(new Usuarios(124, "Test2", "Carrier2", Rol.Carrier, "2", "2"));
+       Registro.usuarios.add(new Usuarios(125, "Test3", "Carrier3", Rol.Carrier, "3", "3"));
+
+       Broker.ordenesCotB.add(new Orden(Provincias.Alajuela, Provincias.Cartago, 2, "Test1", "Broker1", 123,"", "", 0, 0.0, Status.Pending, 1,0));
+       Broker.tempB.add(new Orden(Provincias.Alajuela, Provincias.Cartago, 2, "Test1", "Broker1", 123,"", "", 0, 0.0, Status.Pending, 1,1));
+
+       Broker.ordenesCotB.add(new Orden(Provincias.San_Jose, Provincias.Cartago, 2, "Test1", "Broker1", 123,"", "", 0, 0.0, Status.Pending, 2,0));
+       Broker.tempB.add(new Orden(Provincias.San_Jose, Provincias.Cartago, 2, "Test1", "Broker1", 123,"", "", 0, 0.0, Status.Pending, 2,2));
+   }
 
 }

@@ -11,14 +11,12 @@ public class Menu {
 
     public void menuAdmin() {
         String[] opciones = {"", "1. Usuarios nuevos", "2. Modificar usuarios",
-                "3. Eliminar usuario", "4. Consultas de ofertas", "5. Clientes", "6. Salir"};
+                "3. Eliminar usuario", "4. Salir"};
 
         String msg = ("1. Usuarios nuevos. \n" +
                 "2. Modificar usuarios. \n" +
                 "3. Eliminar usuario. \n" +
-                "4. Consultas de ofertas. \n" +
-                "5. Clientes.\n" +
-                "6. Salir.");
+                "4. Salir.");
 
         boolean seguir = true;
 
@@ -48,17 +46,8 @@ public class Menu {
 
                         break;
 
-                    case "4. Consultas de ofertas":
-                        System.out.println("Consultas de ofertas");
 
-                        break;
-
-                    case "5. Clientes":
-                        System.out.println("Clientes");
-
-                        break;
-
-                    case "6. Salir":
+                    case "4. Salir":
                         System.out.println("Salir");
                         seguir = false;
                         break;
@@ -93,10 +82,10 @@ public class Menu {
     public void broker(int id) {
         System.out.println("Broker's menu");
 
-        String[] opciones = {"", "1. Ofertas aceptadas", "2. Cotizar",
+        String[] opciones = {"", "1. Consultas", "2. Cotizar",
                 "3. Aceptar o rechazar cotizaciones", "4. Salir"};
 
-        String msg = ("1. Ofertas aceptadas. \n" +
+        String msg = ("1. Consultas. \n" +
                 "2. Cotizar. \n" +
                 "3. Aceptar o rechazar cotizaciones. \n" +
                 "4. Salir.");
@@ -110,9 +99,10 @@ public class Menu {
                     JOptionPane.PLAIN_MESSAGE, image, opciones, opciones[0]);
             if (res != null){
                 switch (res) {
-                    case "1. Ofertas aceptadas":
-                        System.out.println("Ofertas aceptadas");
-
+                    case "1. Consultas":
+                        System.out.println("Consultas");
+                        //Broker.consultasPendientes(id);
+                        consultasBroker(id);
                         break;
 
                     case "2. Cotizar":
@@ -161,7 +151,8 @@ public class Menu {
                 switch (res) {
                     case "1. Ofertas aceptadas":
                         System.out.println("Carrier Ofertas aceptadas");
-
+                        Carrier.ofertasAceptadasC(id);
+                        JOptionPane.showMessageDialog(null, "Reporte(s) descargado(s), 'Root directory'.");
                         break;
 
                     case "2. Ofertas pendientes":
@@ -189,6 +180,51 @@ public class Menu {
             }
         }
     }
+
+    public void consultasBroker(int id){
+        System.out.println("consultasBroker");
+
+        String[] opciones = {"", "1. Ofertas pendientes", "2. Ofertas aceptadas", "3. Salir"};
+
+        String msg = ("1. Ofertas pendientes. \n" +
+                "2. Ofertas aceptadas. \n" +
+                "3. Salir.");
+
+        boolean seguir = true;
+
+        ImageIcon image = new ImageIcon("ticoCargas.png");
+
+        while (seguir == true) {
+            String res = (String) JOptionPane.showInputDialog(null, msg, "Sistema TicoCargas - Menú Broker",
+                    JOptionPane.PLAIN_MESSAGE, image, opciones, opciones[0]);
+            if (res != null){
+                switch (res) {
+                    case "1. Ofertas pendientes":
+                        System.out.println("Consultas - Ofertas pendientes");
+                        Broker.consultasPendientes(id);
+                        break;
+
+                    case "2. Ofertas aceptadas":
+                        System.out.println("Consultas - Ofertas aceptadas");
+                        Broker.ofertasAceptadas(id);
+                        JOptionPane.showMessageDialog(null, "Reporte(s) descargado(s), 'Root directory'.");
+                        break;
+
+                    case "3. Salir":
+                        System.out.println("Salir");
+                        seguir = false;
+                        break;
+
+                }
+            }
+            else{
+                System.out.println("Cancel Consultas");
+                JOptionPane.showMessageDialog(null, "Opción cancelada!!!", "Sistema TicoCArgas - Menú de consultas", JOptionPane.WARNING_MESSAGE);
+                seguir = false;
+            }
+        }
+    }
+
 }
 
 

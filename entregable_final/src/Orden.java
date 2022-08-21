@@ -1,4 +1,4 @@
-public class Orden {
+public class Orden implements Comparable<Orden>{
 
     public Provincias Origen;
     public Provincias Destino;
@@ -16,9 +16,12 @@ public class Orden {
     public Status Status;
 
     public int OrdenID;
+    public int OfertaID;
+
+
 
     public Orden (Provincias origen, Provincias destino, int containers, String nombreB, String apellidosB, int iDB,
-                  String nombreC, String apellidosC, int iDC, double oferta, Status status, int ordenID)
+                  String nombreC, String apellidosC, int iDC, double oferta, Status status, int ordenID, int ofertaID)
     {
         this.Origen = origen;
         this.Destino = destino;
@@ -32,9 +35,47 @@ public class Orden {
         this.Oferta = oferta;
         this.Status = status;
         this.OrdenID = ordenID;
+        this.OfertaID = ofertaID;
     }
 
-    public Provincias getOrigen() {return Origen;}
+    @Override
+    public String toString() {
+        return "Orden{" +
+                "Origen=" + Origen +
+                ", Destino=" + Destino +
+                ", Containers=" + Containers +
+                ", NombreB='" + NombreB + '\'' +
+                ", ApellidosB='" + ApellidosB + '\'' +
+                ", IDB=" + IDB +
+                ", NombreC='" + NombreC + '\'' +
+                ", ApellidosC='" + ApellidosC + '\'' +
+                ", IDC=" + IDC +
+                ", Oferta=" + Oferta +
+                ", Status=" + Status +
+                ", OrdenID=" + OrdenID +
+                ", OfertaID=" + OfertaID +
+                '}';
+    }
+
+/*    @Override
+    public String toString() {
+        return "Orden{" +
+                "Origen=" + Origen +
+                ", Destino=" + Destino +
+                ", Containers=" + Containers +
+                ", NombreB='" + NombreB + '\'' +
+                ", ApellidosB='" + ApellidosB + '\'' +
+                ", IDB=" + IDB +
+                ", NombreC='" + NombreC + '\'' +
+                ", ApellidosC='" + ApellidosC + '\'' +
+                ", IDC=" + IDC +
+                ", Oferta=" + Oferta +
+                ", Status=" + Status +
+                ", OrdenID=" + OrdenID +
+                '}';
+    } */
+
+      public Provincias getOrigen() {return Origen;}
 
     public void setOrigen(Provincias origen) {
         Origen = origen;
@@ -128,5 +169,25 @@ public class Orden {
         OrdenID = ordenID;
     }
 
+    public int getOfertaID() {
+        return OfertaID;
+    }
 
+    public void setOfertaID(int ofertaID) {
+        OfertaID = ofertaID;
+    }
+
+
+    @Override
+    public int compareTo(Orden o) {
+        if (this.getOrdenID() > o.getOrdenID())
+        {
+            return 1;
+        } else if (this.getOrdenID() == o.getOrdenID()) {
+            return 0;
+
+        } else {
+            return -1;
+        }
+    }
 }
