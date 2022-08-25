@@ -5,10 +5,6 @@
  */
 package petmarket;
 
-/**
- *
- * @author estga
- */
 public class Alimentos {
 
 

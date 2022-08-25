@@ -4,8 +4,13 @@
  * and open the template in the editor.
  */
 package petmarket;
+
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class InicializarInventario {
@@ -35,12 +40,17 @@ public class InicializarInventario {
 
     public void inicializar()
     {
+        try (BufferedWriter cargas = new BufferedWriter(new FileWriter("orders.txt")))
+        {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String cadena = "";
-        alimentos.add(new Alimentos("AL-COD-1" , "Cat_Food", "Felino", 1.25,5));
-        alimentos.add(new Alimentos("AL-COD-2", "Dog_Food", "Canino", 2.50,5));
-        alimentos.add(new Alimentos("AL-COD-3", "Bird_Food", "Aviario", 1.15,5));
-        alimentos.add(new Alimentos("AL-COD-4", "Horse_Food", "Equino", 10.35,5));
-        alimentos.add(new Alimentos("AL-COD-5", "COW_Food", "Bovino", 15.00,5));
+        alimentos.add(new Alimentos("AL-COD-1" , "Cat Food", "Felino", 1.25,5));
+        alimentos.add(new Alimentos("AL-COD-2", "Dog Food", "Canino", 2.50,5));
+        alimentos.add(new Alimentos("AL-COD-3", "Bird Food", "Aviario", 1.15,5));
+        alimentos.add(new Alimentos("AL-COD-4", "Horse Food", "Equino", 10.35,5));
+        alimentos.add(new Alimentos("AL-COD-5", "Cow Food", "Bovino", 15.00,5));
 
         articulos.add(new Articulos("AR-COD-1", "Ratón de hule", "Felino", 4.25,5));
         articulos.add(new Articulos("AR-COD-2", "Bolita", "Canino", 4.50,5));
@@ -84,37 +94,45 @@ public class InicializarInventario {
         while (seguir == true) {
             String res = (String) JOptionPane.showInputDialog(null, msg, "Sistema PetMarket - Menú de Inventario",
                     JOptionPane.PLAIN_MESSAGE, imagen, opciones, opciones[0]);
-            switch (res) {
-                case "1. Consultas":
-                    System.out.println("Consultas");
-                    consultasInventario();
-                    seguir = true;
+            if (res != null) {
+                switch (res) {
+                    case "1. Consultas":
+                        System.out.println("Consultas");
+                        consultasInventario();
+                        seguir = true;
 
-                    break;
+                        break;
 
-                case "2. Actualizar Inventario (agregar)":
-                    System.out.println("Actualizar Inventario (agregar)");
-                    agregarInventario();
-                    seguir = true;
-                    break;
+                    case "2. Actualizar Inventario (agregar)":
+                        System.out.println("Actualizar Inventario (agregar)");
+                        agregarInventario();
+                        seguir = true;
+                        break;
 
-                case "3. Actualizar Inventario (restar)":
-                    System.out.println("Actualizar Inventario (restar)");
-                    restarInventario();
-                    seguir = true;
-                    break;
+                    case "3. Actualizar Inventario (restar)":
+                        System.out.println("Actualizar Inventario (restar)");
+                        restarInventario();
+                        seguir = true;
+                        break;
 
-                case "4. Producto nuevo":
-                    System.out.println("Producto nuevo");
-                    agregarProducto();
-                    seguir = true;
-                    break;
+                    case "4. Producto nuevo":
+                        System.out.println("Producto nuevo");
+                        agregarProducto();
+                        seguir = true;
+                        break;
 
 
-                case "5. Salir":
-                    System.out.println("Salir Inventario");
-                    seguir = false;
-                    break;
+                    case "5. Salir":
+                        System.out.println("Salir Inventario");
+                        seguir = false;
+                        break;
+                }
+            }
+            else
+            {
+                System.out.println("Cerrando Menú de Inventario...");
+                JOptionPane.showMessageDialog(null, "Cerrando - Menú de Inventario...", "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                seguir = false;
             }
 
         }
@@ -139,80 +157,84 @@ public class InicializarInventario {
                     JOptionPane.PLAIN_MESSAGE, imagenC, consultas, consultas[0]);
             String cadena = "";
 
-            switch (res) {
-                case "1. Alimentos":
-                    System.out.println("Alimentos");
-                    for (int i = 0; i < alimentos.size(); i++ )
-                    {
-                        String codigoT = alimentos.get(i).getCodigo();
-                        String nombreT = alimentos.get(i).getNombre();
-                        String tipoT = alimentos.get(i).getTipoAnimal();
-                        double precioT = alimentos.get(i).getPrecio();
-                        int canT = alimentos.get(i).getCantidad();
+            if (res != null) {
+                switch (res) {
+                    case "1. Alimentos":
+                        System.out.println("Alimentos");
+                        for (int i = 0; i < alimentos.size(); i++) {
+                            String codigoT = alimentos.get(i).getCodigo();
+                            String nombreT = alimentos.get(i).getNombre();
+                            String tipoT = alimentos.get(i).getTipoAnimal();
+                            double precioT = alimentos.get(i).getPrecio();
+                            int canT = alimentos.get(i).getCantidad();
 
-                        cadena += ("Codigo: " + codigoT + "     | Nombre: " + nombreT + "     | Tipo: " + tipoT +
-                                "     | Precio: " + precioT + "     | Cantidad: " + canT + "\n");
+                            cadena += ("Codigo: " + codigoT + "     | Nombre: " + nombreT + "     | Tipo: " + tipoT +
+                                    "     | Precio: " + precioT + "     | Cantidad: " + canT + "\n");
 
-                    }
-                    JOptionPane.showMessageDialog(null, cadena);
-                    break;
+                        }
+                        JOptionPane.showMessageDialog(null, cadena);
+                        break;
 
-                case "2. Artículos":
-                    System.out.println("Artículos");
-                    for (int i = 0; i < articulos.size(); i++ )
-                    {
-                        String codigoT = articulos.get(i).getCodigo();
-                        String nombreT = articulos.get(i).getNombre();
-                        String tipoT = articulos.get(i).getTipoAnimal();
-                        double precioT = articulos.get(i).getPrecio();
-                        int canT = articulos.get(i).getCantidad();
+                    case "2. Artículos":
+                        System.out.println("Artículos");
+                        for (int i = 0; i < articulos.size(); i++) {
+                            String codigoT = articulos.get(i).getCodigo();
+                            String nombreT = articulos.get(i).getNombre();
+                            String tipoT = articulos.get(i).getTipoAnimal();
+                            double precioT = articulos.get(i).getPrecio();
+                            int canT = articulos.get(i).getCantidad();
 
-                        cadena += ("Codigo: " + codigoT + "     | Nombre: " + nombreT + "     | Tipo: " + tipoT +
-                                "     | Precio: " + precioT + "     | Cantidad: " + canT + "\n");
+                            cadena += ("Codigo: " + codigoT + "     | Nombre: " + nombreT + "     | Tipo: " + tipoT +
+                                    "     | Precio: " + precioT + "     | Cantidad: " + canT + "\n");
 
-                    }
-                    JOptionPane.showMessageDialog(null, cadena);
-                    break;
+                        }
+                        JOptionPane.showMessageDialog(null, cadena);
+                        break;
 
-                case "3. Medicamentos":
-                    System.out.println("Medicamentos");
-                    for (int i = 0; i < medicamentos.size(); i++ )
-                    {
-                        String codigoT = medicamentos.get(i).getCodigo();
-                        String nombreT = medicamentos.get(i).getNombre();
-                        String tipoT = medicamentos.get(i).getTipoAnimal();
-                        double precioT = medicamentos.get(i).getPrecio();
-                        int canT = medicamentos.get(i).getCantidad();
+                    case "3. Medicamentos":
+                        System.out.println("Medicamentos");
+                        for (int i = 0; i < medicamentos.size(); i++) {
+                            String codigoT = medicamentos.get(i).getCodigo();
+                            String nombreT = medicamentos.get(i).getNombre();
+                            String tipoT = medicamentos.get(i).getTipoAnimal();
+                            double precioT = medicamentos.get(i).getPrecio();
+                            int canT = medicamentos.get(i).getCantidad();
 
-                        cadena += ("Codigo: " + codigoT + "     | Nombre: " + nombreT + "     | Tipo: " + tipoT +
-                                "     | Precio: " + precioT + "     | Cantidad: " + canT + "\n");
+                            cadena += ("Codigo: " + codigoT + "     | Nombre: " + nombreT + "     | Tipo: " + tipoT +
+                                    "     | Precio: " + precioT + "     | Cantidad: " + canT + "\n");
 
-                    }
-                    JOptionPane.showMessageDialog(null, cadena);
-                    break;
+                        }
+                        JOptionPane.showMessageDialog(null, cadena);
+                        break;
 
-                case "4. Granel":
-                    System.out.println("Granel");
-                    for (int i = 0; i < granel.size(); i++ )
-                    {
-                        String codigoT = granel.get(i).getCodigo();
-                        String nombreT = granel.get(i).getNombre();
-                        String tipoT = granel.get(i).getTipoAnimal();
-                        double precioT = granel.get(i).getPrecio();
-                        double canT = granel.get(i).getKilos();
+                    case "4. Granel":
+                        System.out.println("Granel");
+                        for (int i = 0; i < granel.size(); i++) {
+                            String codigoT = granel.get(i).getCodigo();
+                            String nombreT = granel.get(i).getNombre();
+                            String tipoT = granel.get(i).getTipoAnimal();
+                            double precioT = granel.get(i).getPrecio();
+                            double canT = granel.get(i).getKilos();
 
-                        cadena += ("Codigo: " + codigoT + "     | Nombre: " + nombreT + "     | Tipo: " + tipoT +
-                                "     | Precio: " + precioT + "     | Cantidad: " + canT + " kgs\n");
+                            cadena += ("Codigo: " + codigoT + "     | Nombre: " + nombreT + "     | Tipo: " + tipoT +
+                                    "     | Precio: " + precioT + "     | Cantidad: " + canT + " kgs\n");
 
-                    }
-                    JOptionPane.showMessageDialog(null, cadena);
-                    break;
+                        }
+                        JOptionPane.showMessageDialog(null, cadena);
+                        break;
 
 
-                case "5. Salir":
-                    System.out.println("Salir Consultas");
-                    seguir = false;
-                    break;
+                    case "5. Salir":
+                        System.out.println("Salir Consultas");
+                        seguir = false;
+                        break;
+                }
+            }
+            else
+            {
+                System.out.println("Cerrando Consultas del Inventario...");
+                JOptionPane.showMessageDialog(null, "Cerrando - Consultas del Inventario...", "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                seguir = false;
             }
 
         }
@@ -236,219 +258,208 @@ public class InicializarInventario {
             String res = (String) JOptionPane.showInputDialog(null, msgC, "Sistema PetMarket - Agregar al Inventario",
                     JOptionPane.PLAIN_MESSAGE, imagenC, consultas, consultas[0]);
 
-            switch (res) {
-                case "1. Alimentos":
-                    j = 0;
-                    addAl = 0;
-                    String codigoAl;
+            if (res != null) {
+                switch (res) {
+                    case "1. Alimentos":
+                        j = 0;
+                        addAl = 0;
+                        String codigoAl;
 
-                    codigoAl = JOptionPane.showInputDialog("Digite el código de artículo para agregar inventario: ");
-                    for (int i = 0; i < alimentos.size(); i++) {
-                        String looking = alimentos.get(i).getCodigo();
-                        if (looking.equals(codigoAl)) {
-                            j = i;
-                            break;
-                        } else {
-                            j = i + 100;
-                        }
-                    }
-                    if ( j > alimentos.size())
-                    {
-                        JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
-                        break;
-                    }
-
-
-                    while (true) {
-                        try {
-                            addAl = Integer.parseInt(JOptionPane.showInputDialog("Digite la cantidad de artículos a agregar a " + codigoAl + ": "));
-                            if (addAl > 0)
-                            {
+                        codigoAl = JOptionPane.showInputDialog("Digite el código de artículo para agregar inventario: ");
+                        for (int i = 0; i < alimentos.size(); i++) {
+                            String looking = alimentos.get(i).getCodigo();
+                            if (looking.equals(codigoAl)) {
+                                j = i;
                                 break;
+                            } else {
+                                j = i + 100;
                             }
-                            else {
-                                JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
-                            }
-                            //break;
-                        } catch (HeadlessException | NumberFormatException e) {
-                            JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                        }
+                        if (j > alimentos.size()) {
+                            JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
+                            break;
                         }
 
-                    }
-                    int canTN = alimentos.get(j).getCantidad();
-                    addAl += canTN;
-                    alimentos.get(j).setCantidad(addAl);
-                    String Alcod = alimentos.get(j).getCodigo();
-                    String Alname = alimentos.get(j).getNombre();
-                    int Alcant = alimentos.get(j).getCantidad();
-                    JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Alcod + " " + Alname + "' es de: " + Alcant);
 
-                    break;
+                        while (true) {
+                            try {
+                                addAl = Integer.parseInt(JOptionPane.showInputDialog("Digite la cantidad de artículos a agregar a " + codigoAl + ": "));
+                                if (addAl > 0) {
+                                    break;
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
+                                }
+                                //break;
+                            } catch (HeadlessException | NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                            }
 
+                        }
+                        int canTN = alimentos.get(j).getCantidad();
+                        addAl += canTN;
+                        alimentos.get(j).setCantidad(addAl);
+                        String Alcod = alimentos.get(j).getCodigo();
+                        String Alname = alimentos.get(j).getNombre();
+                        int Alcant = alimentos.get(j).getCantidad();
+                        JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Alcod + " " + Alname + "' es de: " + Alcant);
+
+                        break;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                case "2. Artículos":
-                    System.out.println("Artículos");
-                    j = 0;
-                    addAl = 0;
-                    String codigoAr;
+                    case "2. Artículos":
+                        System.out.println("Artículos");
+                        j = 0;
+                        addAl = 0;
+                        String codigoAr;
 
-                    codigoAr = JOptionPane.showInputDialog("Digite el código de artículo para agregar inventario: ");
-                    for (int i = 0; i < articulos.size(); i++)
-                    {
-                        String looking = articulos.get(i).getCodigo();
-                        if (looking.equals(codigoAr)) {
-                            j = i;
-                            break;
-                    } else
-                    {
-                    j = i + 100;
-                    }
-                    }
-            if ( j > alimentos.size())
-            {
-                JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
-                break;
-            }
-
-                    while (true) {
-                        try {
-                            addAl = Integer.parseInt(JOptionPane.showInputDialog("Digite la cantidad de artículos a agregar a " + codigoAr + ": "));
-                            if (addAl > 0)
-                            {
+                        codigoAr = JOptionPane.showInputDialog("Digite el código de artículo para agregar inventario: ");
+                        for (int i = 0; i < articulos.size(); i++) {
+                            String looking = articulos.get(i).getCodigo();
+                            if (looking.equals(codigoAr)) {
+                                j = i;
                                 break;
+                            } else {
+                                j = i + 100;
                             }
-                            else {
-                                JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
-                            }
-                            //break;
-                        } catch (HeadlessException | NumberFormatException e) {
-                            JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
                         }
-
-                    }
-                    int canAr = alimentos.get(j).getCantidad();
-                    addAl += canAr;
-                    articulos.get(j).setCantidad(addAl);
-                    String Arcod = articulos.get(j).getCodigo();
-                    String Arname = articulos.get(j).getNombre();
-                    int Arcant = articulos.get(j).getCantidad();
-                    JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Arcod + " " + Arname + "' es de: " + Arcant);
-
-                    break;
-
- /////////////////////////////////////////////////////////////////////////////////////
-
-                case "3. Medicamentos":
-                    System.out.println("Medicamentos");
-                    j = 0;
-                    addAl = 0;
-                    String codigoM;
-
-                    codigoM = JOptionPane.showInputDialog("Digite el código de artículo para agregar inventario: ");
-                    for (int i = 0; i < medicamentos.size(); i++)
-                    {
-                        String looking = medicamentos.get(i).getCodigo();
-                        if (looking.equals(codigoM)) {
-                            j = i;
+                        if (j > alimentos.size()) {
+                            JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
                             break;
-                        } else
-                        {
-                            j = i + 100;
                         }
-                    }
-                    if ( j > medicamentos.size())
-                    {
-                        JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
+
+                        while (true) {
+                            try {
+                                addAl = Integer.parseInt(JOptionPane.showInputDialog("Digite la cantidad de artículos a agregar a " + codigoAr + ": "));
+                                if (addAl > 0) {
+                                    break;
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
+                                }
+                                //break;
+                            } catch (HeadlessException | NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                            }
+
+                        }
+                        int canAr = alimentos.get(j).getCantidad();
+                        addAl += canAr;
+                        articulos.get(j).setCantidad(addAl);
+                        String Arcod = articulos.get(j).getCodigo();
+                        String Arname = articulos.get(j).getNombre();
+                        int Arcant = articulos.get(j).getCantidad();
+                        JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Arcod + " " + Arname + "' es de: " + Arcant);
+
                         break;
-                    }
 
-                    while (true) {
-                        try {
-                            addAl = Integer.parseInt(JOptionPane.showInputDialog("Digite la cantidad de artículos a agregar a " + codigoM + ": "));
-                            if (addAl > 0)
-                            {
+                    /////////////////////////////////////////////////////////////////////////////////////
+
+                    case "3. Medicamentos":
+                        System.out.println("Medicamentos");
+                        j = 0;
+                        addAl = 0;
+                        String codigoM;
+
+                        codigoM = JOptionPane.showInputDialog("Digite el código de artículo para agregar inventario: ");
+                        for (int i = 0; i < medicamentos.size(); i++) {
+                            String looking = medicamentos.get(i).getCodigo();
+                            if (looking.equals(codigoM)) {
+                                j = i;
                                 break;
+                            } else {
+                                j = i + 100;
                             }
-                            else {
-                                JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
-                            }
-                            //break;
-                        } catch (HeadlessException | NumberFormatException e) {
-                            JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                        }
+                        if (j > medicamentos.size()) {
+                            JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
+                            break;
                         }
 
-                    }
-                    int canM = medicamentos.get(j).getCantidad();
-                    addAl += canM;
-                    medicamentos.get(j).setCantidad(addAl);
-                    String Mcod = medicamentos.get(j).getCodigo();
-                    String Mname = medicamentos.get(j).getNombre();
-                    int Mcant = medicamentos.get(j).getCantidad();
-                    JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Mcod + " " + Mname + "' es de: " + Mcant);
+                        while (true) {
+                            try {
+                                addAl = Integer.parseInt(JOptionPane.showInputDialog("Digite la cantidad de artículos a agregar a " + codigoM + ": "));
+                                if (addAl > 0) {
+                                    break;
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
+                                }
+                                //break;
+                            } catch (HeadlessException | NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                            }
 
-                    break;
+                        }
+                        int canM = medicamentos.get(j).getCantidad();
+                        addAl += canM;
+                        medicamentos.get(j).setCantidad(addAl);
+                        String Mcod = medicamentos.get(j).getCodigo();
+                        String Mname = medicamentos.get(j).getNombre();
+                        int Mcant = medicamentos.get(j).getCantidad();
+                        JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Mcod + " " + Mname + "' es de: " + Mcant);
+
+                        break;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-                case "4. Granel":
-                    System.out.println("Granel");
-                    j = 0;
-                    double addG = 0.0;
-                    String codigoG;
+                    case "4. Granel":
+                        System.out.println("Granel");
+                        j = 0;
+                        double addG = 0.0;
+                        String codigoG;
 
-                    codigoG = JOptionPane.showInputDialog("Digite el código de artículo para agregar inventario: ");
-                    for (int i = 0; i < granel.size(); i++)
-                    {
-                        String looking = granel.get(i).getCodigo();
-                        if (looking.equals(codigoG)) {
-                            j = i;
-                            break;
-                        } else
-                        {
-                            j = i + 100;
-                        }
-                    }
-                    if ( j > granel.size())
-                    {
-                        JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
-                        break;
-                    }
-
-                    while (true) {
-                        try {
-                            addG = Double.parseDouble(JOptionPane.showInputDialog("Digite la cantidad de kilos a agregar a " + codigoG + ": "));
-                            if (addG > 0)
-                            {
+                        codigoG = JOptionPane.showInputDialog("Digite el código de artículo para agregar inventario: ");
+                        for (int i = 0; i < granel.size(); i++) {
+                            String looking = granel.get(i).getCodigo();
+                            if (looking.equals(codigoG)) {
+                                j = i;
                                 break;
+                            } else {
+                                j = i + 100;
                             }
-                            else {
-                                JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
-                            }
-                            //break;
-                        } catch (HeadlessException | NumberFormatException e) {
-                            JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                        }
+                        if (j > granel.size()) {
+                            JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
+                            break;
                         }
 
-                    }
-                    double canG = granel.get(j).getKilos();
-                    addG += canG;
-                    granel.get(j).setKilos(addG);
-                    String Gcod = granel.get(j).getCodigo();
-                    String Gname = granel.get(j).getNombre();
-                    double Gcant = granel.get(j).getKilos();
-                    JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Gcod + " " + Gname + "' es de: " + Gcant);
-;
-                    break;
+                        while (true) {
+                            try {
+                                addG = Double.parseDouble(JOptionPane.showInputDialog("Digite la cantidad de kilos a agregar a " + codigoG + ": "));
+                                if (addG > 0) {
+                                    break;
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
+                                }
+                                //break;
+                            } catch (HeadlessException | NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                            }
+
+                        }
+                        double canG = granel.get(j).getKilos();
+                        addG += canG;
+                        granel.get(j).setKilos(addG);
+                        String Gcod = granel.get(j).getCodigo();
+                        String Gname = granel.get(j).getNombre();
+                        double Gcant = granel.get(j).getKilos();
+                        JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Gcod + " " + Gname + "' es de: " + Gcant);
+                        ;
+                        break;
 
 
-                case "5. Salir":
-                    System.out.println("Salir Consultas");
-                    seguir = false;
-                    break;
+                    case "5. Salir":
+                        System.out.println("Salir Consultas");
+                        seguir = false;
+                        break;
+                }
+            }
+            else
+            {
+                System.out.println("Cerrando Agregar al Inventario...");
+                JOptionPane.showMessageDialog(null, "Cerrando - Agregar al Inventario...", "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                seguir = false;
             }
 
         }
@@ -472,243 +483,228 @@ public class InicializarInventario {
             String res = (String) JOptionPane.showInputDialog(null, msgC, "Sistema PetMarket - Restar al Inventario",
                     JOptionPane.PLAIN_MESSAGE, imagenC, substract, substract[0]);
 
-            switch (res) {
-                case "1. Alimentos":
-                    j = 0;
-                    addAl = 0;
-                    String codigoAl;
+            if (res != null) {
+                switch (res) {
+                    case "1. Alimentos":
+                        j = 0;
+                        addAl = 0;
+                        String codigoAl;
 
-                    codigoAl = JOptionPane.showInputDialog("Digite el código de artículo para restar inventario: ");
-                    for (int i = 0; i < alimentos.size(); i++) {
-                        String looking = alimentos.get(i).getCodigo();
-                        if (looking.equals(codigoAl)) {
-                            j = i;
-                            break;
-                        } else {
-                            j = i + 100;
-                        }
-                    }
-                    if ( j > alimentos.size())
-                    {
-                        JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
-                        break;
-                    }
-
-
-                    while (true) {
-                        try {
-                            addAl = Integer.parseInt(JOptionPane.showInputDialog("Digite la cantidad de artículos a restar a " + codigoAl + ": "));
-                            if (addAl > 0)
-                            {
+                        codigoAl = JOptionPane.showInputDialog("Digite el código de artículo para restar inventario: ");
+                        for (int i = 0; i < alimentos.size(); i++) {
+                            String looking = alimentos.get(i).getCodigo();
+                            if (looking.equals(codigoAl)) {
+                                j = i;
                                 break;
+                            } else {
+                                j = i + 100;
                             }
-                            else {
-                                JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
-                            }
-                            //break;
-                        } catch (HeadlessException | NumberFormatException e) {
-                            JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                        }
+                        if (j > alimentos.size()) {
+                            JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
+                            break;
                         }
 
-                    }
-                    int canTN = alimentos.get(j).getCantidad();
-                    canTN -= addAl;
-                    if (canTN >= 0) {
-                        alimentos.get(j).setCantidad(canTN);
-                        String Alcod = alimentos.get(j).getCodigo();
-                        String Alname = alimentos.get(j).getNombre();
-                        int Alcant = alimentos.get(j).getCantidad();
-                        JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Alcod + " " + Alname + "' es de: " + Alcant);
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Error!, el inventario de " + codigoAl + " no puede ser negativo.",
-                                null, JOptionPane.WARNING_MESSAGE);
-                    }
 
-                    break;
+                        while (true) {
+                            try {
+                                addAl = Integer.parseInt(JOptionPane.showInputDialog("Digite la cantidad de artículos a restar a " + codigoAl + ": "));
+                                if (addAl > 0) {
+                                    break;
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
+                                }
+                                //break;
+                            } catch (HeadlessException | NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                            }
 
+                        }
+                        int canTN = alimentos.get(j).getCantidad();
+                        canTN -= addAl;
+                        if (canTN >= 0) {
+                            alimentos.get(j).setCantidad(canTN);
+                            String Alcod = alimentos.get(j).getCodigo();
+                            String Alname = alimentos.get(j).getNombre();
+                            int Alcant = alimentos.get(j).getCantidad();
+                            JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Alcod + " " + Alname + "' es de: " + Alcant);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error!, el inventario de " + codigoAl + " no puede ser negativo.",
+                                    null, JOptionPane.WARNING_MESSAGE);
+                        }
+
+                        break;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                case "2. Artículos":
-                    System.out.println("Artículos");
-                    j = 0;
-                    addAl = 0;
-                    String codigoAr;
+                    case "2. Artículos":
+                        System.out.println("Artículos");
+                        j = 0;
+                        addAl = 0;
+                        String codigoAr;
 
-                    codigoAr = JOptionPane.showInputDialog("Digite el código de artículo para restar inventario: ");
-                    for (int i = 0; i < articulos.size(); i++)
-                    {
-                        String looking = articulos.get(i).getCodigo();
-                        if (looking.equals(codigoAr)) {
-                            j = i;
-                            break;
-                        } else
-                        {
-                            j = i + 100;
-                        }
-                    }
-                    if ( j > articulos.size())
-                    {
-                        JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
-                        break;
-                    }
-
-                    while (true) {
-                        try {
-                            addAl = Integer.parseInt(JOptionPane.showInputDialog("Digite la cantidad de artículos a restar a " + codigoAr + ": "));
-                            if (addAl > 0)
-                            {
+                        codigoAr = JOptionPane.showInputDialog("Digite el código de artículo para restar inventario: ");
+                        for (int i = 0; i < articulos.size(); i++) {
+                            String looking = articulos.get(i).getCodigo();
+                            if (looking.equals(codigoAr)) {
+                                j = i;
                                 break;
+                            } else {
+                                j = i + 100;
                             }
-                            else {
-                                JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
-                            }
-                            //break;
-                        } catch (HeadlessException | NumberFormatException e) {
-                            JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
                         }
-
-                    }
-                    int canAR = alimentos.get(j).getCantidad();
-                    canAR -= addAl;
-                    if (canAR >= 0) {
-                        articulos.get(j).setCantidad(canAR);
-                        String Arcod = articulos.get(j).getCodigo();
-                        String Arname = articulos.get(j).getNombre();
-                        int Arcant = articulos.get(j).getCantidad();
-                        JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Arcod + " " + Arname + "' es de: " + Arcant);
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Error!, el inventario de " + codigoAr + " no puede ser negativo.",
-                                null, JOptionPane.WARNING_MESSAGE);
-                    }
-
-                    break;
-
-                /////////////////////////////////////////////////////////////////////////////////////
-
-                case "3. Medicamentos":
-                    System.out.println("Medicamentos");
-                    j = 0;
-                    addAl = 0;
-                    String codigoM;
-
-                    codigoM = JOptionPane.showInputDialog("Digite el código de artículo para restar inventario: ");
-                    for (int i = 0; i < medicamentos.size(); i++)
-                    {
-                        String looking = medicamentos.get(i).getCodigo();
-                        if (looking.equals(codigoM)) {
-                            j = i;
+                        if (j > articulos.size()) {
+                            JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
                             break;
-                        } else
-                        {
-                            j = i + 100;
                         }
-                    }
-                    if ( j > medicamentos.size())
-                    {
-                        JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
+
+                        while (true) {
+                            try {
+                                addAl = Integer.parseInt(JOptionPane.showInputDialog("Digite la cantidad de artículos a restar a " + codigoAr + ": "));
+                                if (addAl > 0) {
+                                    break;
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
+                                }
+                                //break;
+                            } catch (HeadlessException | NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                            }
+
+                        }
+                        int canAR = alimentos.get(j).getCantidad();
+                        canAR -= addAl;
+                        if (canAR >= 0) {
+                            articulos.get(j).setCantidad(canAR);
+                            String Arcod = articulos.get(j).getCodigo();
+                            String Arname = articulos.get(j).getNombre();
+                            int Arcant = articulos.get(j).getCantidad();
+                            JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Arcod + " " + Arname + "' es de: " + Arcant);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error!, el inventario de " + codigoAr + " no puede ser negativo.",
+                                    null, JOptionPane.WARNING_MESSAGE);
+                        }
+
                         break;
-                    }
 
-                    while (true) {
-                        try {
-                            addAl = Integer.parseInt(JOptionPane.showInputDialog("Digite la cantidad de artículos a restar a " + codigoM + ": "));
-                            if (addAl > 0)
-                            {
+                    /////////////////////////////////////////////////////////////////////////////////////
+
+                    case "3. Medicamentos":
+                        System.out.println("Medicamentos");
+                        j = 0;
+                        addAl = 0;
+                        String codigoM;
+
+                        codigoM = JOptionPane.showInputDialog("Digite el código de artículo para restar inventario: ");
+                        for (int i = 0; i < medicamentos.size(); i++) {
+                            String looking = medicamentos.get(i).getCodigo();
+                            if (looking.equals(codigoM)) {
+                                j = i;
                                 break;
+                            } else {
+                                j = i + 100;
                             }
-                            else {
-                                JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
-                            }
-                            //break;
-                        } catch (HeadlessException | NumberFormatException e) {
-                            JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                        }
+                        if (j > medicamentos.size()) {
+                            JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
+                            break;
                         }
 
-                    }
-                    int canM = medicamentos.get(j).getCantidad();
-                    canM -= addAl;
-                    if (canM >= 0) {
-                        medicamentos.get(j).setCantidad(canM);
-                        String Mcod = medicamentos.get(j).getCodigo();
-                        String Mname = medicamentos.get(j).getNombre();
-                        int Mcant = medicamentos.get(j).getCantidad();
-                        JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Mcod + " " + Mname + "' es de: " + Mcant);
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Error!, el inventario de " + codigoM + " no puede ser negativo.",
-                                null, JOptionPane.WARNING_MESSAGE);
-                    }
+                        while (true) {
+                            try {
+                                addAl = Integer.parseInt(JOptionPane.showInputDialog("Digite la cantidad de artículos a restar a " + codigoM + ": "));
+                                if (addAl > 0) {
+                                    break;
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
+                                }
+                                //break;
+                            } catch (HeadlessException | NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                            }
 
-                    break;
+                        }
+                        int canM = medicamentos.get(j).getCantidad();
+                        canM -= addAl;
+                        if (canM >= 0) {
+                            medicamentos.get(j).setCantidad(canM);
+                            String Mcod = medicamentos.get(j).getCodigo();
+                            String Mname = medicamentos.get(j).getNombre();
+                            int Mcant = medicamentos.get(j).getCantidad();
+                            JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Mcod + " " + Mname + "' es de: " + Mcant);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error!, el inventario de " + codigoM + " no puede ser negativo.",
+                                    null, JOptionPane.WARNING_MESSAGE);
+                        }
+
+                        break;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-                case "4. Granel":
-                    System.out.println("Granel");
-                    j = 0;
-                    double addG = 0.0;
-                    String codigoG;
+                    case "4. Granel":
+                        System.out.println("Granel");
+                        j = 0;
+                        double addG = 0.0;
+                        String codigoG;
 
-                    codigoG = JOptionPane.showInputDialog("Digite el código de artículo para restar inventario: ");
-                    for (int i = 0; i < granel.size(); i++)
-                    {
-                        String looking = granel.get(i).getCodigo();
-                        if (looking.equals(codigoG)) {
-                            j = i;
-                            break;
-                        } else
-                        {
-                            j = i + 100;
-                        }
-                    }
-                    if ( j > granel.size())
-                    {
-                        JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
-                        break;
-                    }
-
-                    while (true) {
-                        try {
-                            addG = Double.parseDouble(JOptionPane.showInputDialog("Digite la cantidad de kilos a restar a " + codigoG + ": "));
-                            if (addG > 0)
-                            {
+                        codigoG = JOptionPane.showInputDialog("Digite el código de artículo para restar inventario: ");
+                        for (int i = 0; i < granel.size(); i++) {
+                            String looking = granel.get(i).getCodigo();
+                            if (looking.equals(codigoG)) {
+                                j = i;
                                 break;
+                            } else {
+                                j = i + 100;
                             }
-                            else {
-                                JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
-                            }
-                            //break;
-                        } catch (HeadlessException | NumberFormatException e) {
-                            JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                        }
+                        if (j > granel.size()) {
+                            JOptionPane.showMessageDialog(null, "Código inválido!!", null, JOptionPane.WARNING_MESSAGE);
+                            break;
                         }
 
-                    }
-                    double canG = granel.get(j).getKilos();
-                    canG -= addG;
-                    if (canG >= 0) {
-                        granel.get(j).setKilos(canG);
-                        String Gcod = granel.get(j).getCodigo();
-                        String Gname = granel.get(j).getNombre();
-                        double Gcant = granel.get(j).getKilos();
-                        JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Gcod + " " + Gname + "' es de: " + Gcant);
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Error!, el inventario de " + codigoG + " no puede ser negativo.",
-                                null, JOptionPane.WARNING_MESSAGE);
-                    }
+                        while (true) {
+                            try {
+                                addG = Double.parseDouble(JOptionPane.showInputDialog("Digite la cantidad de kilos a restar a " + codigoG + ": "));
+                                if (addG > 0) {
+                                    break;
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Número no puede ser negativo!", null, JOptionPane.WARNING_MESSAGE);
+                                }
+                                //break;
+                            } catch (HeadlessException | NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null, "Error!", null, JOptionPane.WARNING_MESSAGE);
+                            }
 
-                    break;
+                        }
+                        double canG = granel.get(j).getKilos();
+                        canG -= addG;
+                        if (canG >= 0) {
+                            granel.get(j).setKilos(canG);
+                            String Gcod = granel.get(j).getCodigo();
+                            String Gname = granel.get(j).getNombre();
+                            double Gcant = granel.get(j).getKilos();
+                            JOptionPane.showMessageDialog(null, "El nuevo inventario de '" + Gcod + " " + Gname + "' es de: " + Gcant);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error!, el inventario de " + codigoG + " no puede ser negativo.",
+                                    null, JOptionPane.WARNING_MESSAGE);
+                        }
+
+                        break;
 
 
-                case "5. Salir":
-                    System.out.println("Salir Consultas");
-                    seguir = false;
-                    break;
+                    case "5. Salir":
+                        System.out.println("Salir Consultas");
+                        seguir = false;
+                        break;
+                }
+            }
+            else
+            {
+                System.out.println("Cerrando Restar al Inventario...");
+                JOptionPane.showMessageDialog(null, "Cerrando - Restar al Inventario...", "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                seguir = false;
             }
 
         }
@@ -753,235 +749,235 @@ public class InicializarInventario {
             double value3 = 0.0;
             int value4 = 0;
 
-            switch (res) {
-                case "1. Alimentos":
-                    value1 = "";
-                    value2 = "";
-                    value3 = 0.0;
-                    value4 = 0;
-                    System.out.println("Alimentos - nuevos productos");
-                    //int alSize = alimentos.size();
-                    while (seguirAP) {
-                        confirmado = 0;
-                        int option = JOptionPane.showConfirmDialog(null, fields, "Sistema PetMarket - Agregar nuevos productos (Alimentos)",
-                                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, imagenAP2);
+            if (res != null) {
+                switch (res) {
+                    case "1. Alimentos":
+                        value1 = "";
+                        value2 = "";
+                        value3 = 0.0;
+                        value4 = 0;
+                        System.out.println("Alimentos - nuevos productos");
+                        //int alSize = alimentos.size();
+                        while (seguirAP) {
+                            confirmado = 0;
+                            int option = JOptionPane.showConfirmDialog(null, fields, "Sistema PetMarket - Agregar nuevos productos (Alimentos)",
+                                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, imagenAP2);
 
-                        if (option == JOptionPane.OK_OPTION) {
-                            value1 = field1.getText();
-                            value2 = field2.getText();
-                            try {
-                                value3 = Double.parseDouble(field3.getText());
-                                confirmado +=1;
+                            if (option == JOptionPane.OK_OPTION) {
+                                value1 = field1.getText();
+                                value2 = field2.getText();
+                                try {
+                                    value3 = Double.parseDouble(field3.getText());
+                                    confirmado += 1;
 
-                            } catch (HeadlessException | NumberFormatException e) {
-                                JOptionPane.showMessageDialog(null, "Error! El precio tiene formato inválido",
-                                        "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
-                                confirmado = 20;
+                                } catch (HeadlessException | NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Error! El precio tiene formato inválido",
+                                            "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                                    confirmado = 20;
+                                    break;
+                                }
+
+                                try {
+                                    value4 = Integer.parseInt(field4.getText());
+
+
+                                } catch (HeadlessException | NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Error! La cantidad tiene formato inválido",
+                                            "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                                    confirmado = 20;
+                                    break;
+                                }
+
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Cancelado");
                                 break;
                             }
-
-                            try {
-                                value4 = Integer.parseInt(field4.getText());
-
-
-                            } catch (HeadlessException | NumberFormatException e) {
-                                JOptionPane.showMessageDialog(null, "Error! La cantidad tiene formato inválido",
-                                        "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
-                                confirmado = 20;
-                                break;
-                            }
-
+                        }
+                        if (confirmado == 1) {
+                            System.out.println(" Seguimos" + confirmado);
+                            int nuevoAl = alimentos.size() + 1;
+                            String newAl = ("AL-COD-" + nuevoAl);
+                            alimentos.add(new Alimentos(newAl, value1, value2, value3, value4));
+                            JOptionPane.showMessageDialog(null, "Confirmado, " + newAl +
+                                    " | " + value1 + " | " + value2 + " | " + value3 + " | " + value4);
+                        }
                         break;
-                        } else
-                        {
-                            JOptionPane.showMessageDialog(null, "Cancelado");
-                            break;
+
+                    case "2. Artículos":
+                        System.out.println("Artículos - nuevos productos");
+                        //int arSize = articulos.size();
+                        value1 = "";
+                        value2 = "";
+                        value3 = 0.0;
+                        value4 = 0;
+
+                        while (seguirAP) {
+                            confirmado = 0;
+                            int option = JOptionPane.showConfirmDialog(null, fields, "Sistema PetMarket - Agregar nuevos productos (Artículos)",
+                                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, imagenAP2);
+
+                            if (option == JOptionPane.OK_OPTION) {
+                                value1 = field1.getText();
+                                value2 = field2.getText();
+                                try {
+                                    value3 = Double.parseDouble(field3.getText());
+                                    confirmado += 1;
+
+                                } catch (HeadlessException | NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Error! El precio tiene formato inválido",
+                                            "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                                    confirmado = 20;
+                                    break;
+                                }
+
+                                try {
+                                    value4 = Integer.parseInt(field4.getText());
+
+
+                                } catch (HeadlessException | NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Error! La cantidad tiene formato inválido",
+                                            "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                                    confirmado = 20;
+                                    break;
+                                }
+
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Cancelado");
+                                break;
+                            }
                         }
-                    }
-                    if (confirmado == 1)
-                    {
-                        System.out.println(" Seguimos" + confirmado);
-                        int nuevoAl = alimentos.size() + 1;
-                        String newAl = ("AL-COD-" + nuevoAl);
-                        alimentos.add(new Alimentos(newAl, value1, value2, value3, value4));
-                        JOptionPane.showMessageDialog(null, "Confirmado, " + newAl +
-                                " | " + value1 + " | " + value2 + " | " + value3 + " | " + value4);
-                    }
-                    break;
-
-                case "2. Artículos":
-                    System.out.println("Artículos - nuevos productos");
-                    //int arSize = articulos.size();
-                    value1 = "";
-                    value2 = "";
-                    value3 = 0.0;
-                    value4 = 0;
-
-                    while (seguirAP) {
-                        confirmado = 0;
-                        int option = JOptionPane.showConfirmDialog(null, fields, "Sistema PetMarket - Agregar nuevos productos (Artículos)",
-                                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, imagenAP2);
-
-                        if (option == JOptionPane.OK_OPTION) {
-                            value1 = field1.getText();
-                            value2 = field2.getText();
-                            try {
-                                value3 = Double.parseDouble(field3.getText());
-                                confirmado +=1;
-
-                            } catch (HeadlessException | NumberFormatException e) {
-                                JOptionPane.showMessageDialog(null, "Error! El precio tiene formato inválido",
-                                        "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
-                                confirmado = 20;
-                                break;
-                            }
-
-                            try {
-                                value4 = Integer.parseInt(field4.getText());
-
-
-                            } catch (HeadlessException | NumberFormatException e) {
-                                JOptionPane.showMessageDialog(null, "Error! La cantidad tiene formato inválido",
-                                        "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
-                                confirmado = 20;
-                                break;
-                            }
-
-                            break;
-                        } else
-                        {
-                            JOptionPane.showMessageDialog(null, "Cancelado");
-                            break;
+                        if (confirmado == 1) {
+                            System.out.println(" Seguimos" + confirmado);
+                            int nuevoAl = articulos.size() + 1;
+                            String newAl = ("AR-COD-" + nuevoAl);
+                            articulos.add(new Articulos(newAl, value1, value2, value3, value4));
+                            JOptionPane.showMessageDialog(null, "Confirmado, " + newAl +
+                                    " | " + value1 + " | " + value2 + " | " + value3 + " | " + value4);
                         }
-                    }
-                    if (confirmado == 1)
-                    {
-                        System.out.println(" Seguimos" + confirmado);
-                        int nuevoAl = articulos.size() + 1;
-                        String newAl = ("AR-COD-" + nuevoAl);
-                        articulos.add(new Articulos(newAl, value1, value2, value3, value4));
-                        JOptionPane.showMessageDialog(null, "Confirmado, " + newAl +
-                                " | " + value1 + " | " + value2 + " | " + value3 + " | " + value4);
-                    }
-                    break;
+                        break;
 
-                case "3. Medicamentos":
-                    System.out.println("Medicamentos - nuevos productos");
-                    //int arSize = articulos.size();
-                    value1 = "";
-                    value2 = "";
-                    value3 = 0.0;
-                    value4 = 0;
+                    case "3. Medicamentos":
+                        System.out.println("Medicamentos - Nuevos productos");
+                        //int arSize = articulos.size();
+                        value1 = "";
+                        value2 = "";
+                        value3 = 0.0;
+                        value4 = 0;
 
-                    while (seguirAP) {
-                        confirmado = 0;
-                        int option = JOptionPane.showConfirmDialog(null, fields, "Sistema PetMarket - Agregar nuevos productos (Medicamentos)",
-                                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, imagenAP2);
+                        while (seguirAP) {
+                            confirmado = 0;
+                            int option = JOptionPane.showConfirmDialog(null, fields, "Sistema PetMarket - Agregar nuevos productos (Medicamentos)",
+                                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, imagenAP2);
 
-                        if (option == JOptionPane.OK_OPTION) {
-                            value1 = field1.getText();
-                            value2 = field2.getText();
-                            try {
-                                value3 = Double.parseDouble(field3.getText());
-                                confirmado +=1;
+                            if (option == JOptionPane.OK_OPTION) {
+                                value1 = field1.getText();
+                                value2 = field2.getText();
+                                try {
+                                    value3 = Double.parseDouble(field3.getText());
+                                    confirmado += 1;
 
-                            } catch (HeadlessException | NumberFormatException e) {
-                                JOptionPane.showMessageDialog(null, "Error! El precio tiene formato inválido",
-                                        "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
-                                confirmado = 20;
+                                } catch (HeadlessException | NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Error! El precio tiene formato inválido",
+                                            "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                                    confirmado = 20;
+                                    break;
+                                }
+
+                                try {
+                                    value4 = Integer.parseInt(field4.getText());
+
+
+                                } catch (HeadlessException | NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Error! La cantidad tiene formato inválido",
+                                            "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                                    confirmado = 20;
+                                    break;
+                                }
+
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Cancelado");
                                 break;
                             }
-
-                            try {
-                                value4 = Integer.parseInt(field4.getText());
-
-
-                            } catch (HeadlessException | NumberFormatException e) {
-                                JOptionPane.showMessageDialog(null, "Error! La cantidad tiene formato inválido",
-                                        "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
-                                confirmado = 20;
-                                break;
-                            }
-
-                            break;
-                        } else
-                        {
-                            JOptionPane.showMessageDialog(null, "Cancelado");
-                            break;
                         }
-                    }
-                    if (confirmado == 1)
-                    {
-                        System.out.println(" Seguimos" + confirmado);
-                        int nuevoM = medicamentos.size() + 1;
-                        String newM = ("MED-COD-" + nuevoM);
-                        medicamentos.add(new Medicamentos(newM, value1, value2, value3, value4));
-                        JOptionPane.showMessageDialog(null, "Confirmado, " + newM +
-                                " | " + value1 + " | " + value2 + " | " + value3 + " | " + value4);
-                    }
-                    break;
-
-                case "4. Granel":
-                    System.out.println("Granel - nuevos productos");
-                    //int arSize = articulos.size();
-                    value1 = "";
-                    value2 = "";
-                    value3 = 0.0;
-                    double value5 = 0.0;
-
-                    while (seguirAP) {
-                        confirmado = 0;
-                        int option = JOptionPane.showConfirmDialog(null, fields, "Sistema PetMarket - Agregar nuevos productos (Granel)",
-                                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, imagenAP2);
-
-                        if (option == JOptionPane.OK_OPTION) {
-                            value1 = field1.getText();
-                            value2 = field2.getText();
-                            try {
-                                value3 = Double.parseDouble(field3.getText());
-                                confirmado +=1;
-
-                            } catch (HeadlessException | NumberFormatException e) {
-                                JOptionPane.showMessageDialog(null, "Error! El precio tiene formato inválido",
-                                        "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
-                                confirmado = 20;
-                                break;
-                            }
-
-                            try {
-                                value5 = Double.parseDouble(field4.getText());
-
-
-                            } catch (HeadlessException | NumberFormatException e) {
-                                JOptionPane.showMessageDialog(null, "Error! La cantidad tiene formato inválido",
-                                        "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
-                                confirmado = 20;
-                                break;
-                            }
-
-                            break;
-                        } else
-                        {
-                            JOptionPane.showMessageDialog(null, "Cancelado");
-                            break;
+                        if (confirmado == 1) {
+                            System.out.println(" Seguimos" + confirmado);
+                            int nuevoM = medicamentos.size() + 1;
+                            String newM = ("MED-COD-" + nuevoM);
+                            medicamentos.add(new Medicamentos(newM, value1, value2, value3, value4));
+                            JOptionPane.showMessageDialog(null, "Confirmado, " + newM +
+                                    " | " + value1 + " | " + value2 + " | " + value3 + " | " + value4);
                         }
-                    }
-                    if (confirmado == 1)
-                    {
-                        System.out.println(" Seguimos" + confirmado);
-                        int nuevoG = granel.size() + 1;
-                        String newG = ("GRA-COD-" + nuevoG);
-                        granel.add(new Granel(newG, value1, value2, value3, value5));
-                        JOptionPane.showMessageDialog(null, "Confirmado, " + newG +
-                                " | " + value1 + " | " + value2 + " | " + value3 + " | " + value5);
-                    }
-                    break;
+                        break;
+
+                    case "4. Granel":
+                        System.out.println("Granel - nuevos productos");
+                        //int arSize = articulos.size();
+                        value1 = "";
+                        value2 = "";
+                        value3 = 0.0;
+                        double value5 = 0.0;
+
+                        while (seguirAP) {
+                            confirmado = 0;
+                            int option = JOptionPane.showConfirmDialog(null, fields, "Sistema PetMarket - Agregar nuevos productos (Granel)",
+                                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, imagenAP2);
+
+                            if (option == JOptionPane.OK_OPTION) {
+                                value1 = field1.getText();
+                                value2 = field2.getText();
+                                try {
+                                    value3 = Double.parseDouble(field3.getText());
+                                    confirmado += 1;
+
+                                } catch (HeadlessException | NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Error! El precio tiene formato inválido",
+                                            "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                                    confirmado = 20;
+                                    break;
+                                }
+
+                                try {
+                                    value5 = Double.parseDouble(field4.getText());
 
 
-                case "5. Salir":
-                    System.out.println("Salir Consultas");
-                    seguir = false;
-                    break;
+                                } catch (HeadlessException | NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(null, "Error! La cantidad tiene formato inválido",
+                                            "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                                    confirmado = 20;
+                                    break;
+                                }
+
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Cancelado");
+                                break;
+                            }
+                        }
+                        if (confirmado == 1) {
+                            System.out.println(" Seguimos" + confirmado);
+                            int nuevoG = granel.size() + 1;
+                            String newG = ("GRA-COD-" + nuevoG);
+                            granel.add(new Granel(newG, value1, value2, value3, value5));
+                            JOptionPane.showMessageDialog(null, "Confirmado, " + newG +
+                                    " | " + value1 + " | " + value2 + " | " + value3 + " | " + value5);
+                        }
+                        break;
+
+
+                    case "5. Salir":
+                        System.out.println("Salir Consultas");
+                        seguir = false;
+                        break;
+                }
+            }
+            else
+            {
+                System.out.println("Cerrando Menú de Nuevos productos...");
+                JOptionPane.showMessageDialog(null, "Cerrando - Menú de Nuevos productos...", "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                seguir = false;
             }
 
         }

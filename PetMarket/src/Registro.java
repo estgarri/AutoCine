@@ -159,6 +159,64 @@ public class Registro {
 
 
     }
+
+    public static void eliminarUsuario()
+    {
+        ImageIcon image2 = new ImageIcon("Roles.png");
+
+        ////////////////////////
+        JTextField field1 = new JTextField();
+        JTextField field2 = new JTextField();
+        JTextField field3 = new JTextField();
+        JTextField field4 = new JTextField();
+
+        ///////////////////////////
+
+        String nom, apell, correo;
+
+        int value1 = 0, verify = 0;
+
+        boolean listo = true, reg = true;
+
+        String value2 = "1", value3 = "1", value4 = "1";
+
+        if ( listo == true){
+
+            String cedula = JOptionPane.showInputDialog("Ingrese el número de cédula del usuario al cual desea eliminar cuenta: ");
+
+            if (cedula != null) {
+
+                try {
+                    value1 = Integer.parseInt(cedula);
+
+                    for (int i = 0; i < Arreglo.size(); i++)
+                    {
+                        if (value1 == Arreglo.get(i).getCedula() ){
+
+                            String user = Arreglo2.get(i).getUsername();
+                            Arreglo.remove(i);
+                            Arreglo2.remove(i);
+
+                            JOptionPane.showMessageDialog(null, "Usuario " + user + " eliminado");
+                            listo = false;
+                            break;
+                        }
+                    }
+
+                } catch (HeadlessException | NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Error! Formato inválido para el número de cédula.",
+                            "Sistema PetMarket", JOptionPane.WARNING_MESSAGE);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null,"Cancelando, no se ha desabilitado ninguna cuenta de usuario.");
+            }
+
+        }
+
+
+
+    }
     public void getRol(String puser) {
         Rol rol = null;
         String user = "", user2 = "", user3 = "";
@@ -240,7 +298,7 @@ public class Registro {
 
         //Registro registro = new Registro();
         String[] opcionRol = {"", "Gerente", "Vendedor"};
-        String msg2 = ("Escoja el nuevo rol del suario: \n" +
+        String msg2 = ("Escoja el nuevo rol del usuario: \n" +
                 "1. Gerente \n" +
                 "2. Vendedor");
 

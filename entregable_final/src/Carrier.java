@@ -120,6 +120,7 @@ public class Carrier {
                                     if (ordenID == Broker.tempB.get(k).getOrdenID())
                                     {
                                         double ofertaO = Broker.tempB.get(k).getOferta();
+                                        int offer = Broker.tempB.get(k).getOfertaID();
                                         String s1 = "---------------------------------------------------\n" +
                                                 "Número de cotización: " + order + "               \n" +
                                                 "---------------------------------------------------\n" +
@@ -127,7 +128,8 @@ public class Carrier {
                                                 "Destino de la carga: " + destino + "               \n" +
                                                 "Cantidad de containers: " + containers + "\n" +
                                                 "--------------------------------------------------- \n" +
-                                                "Este es el número de oferta: " + oferta + "\n" +
+                                                "Este es el número de oferta: " + offer + "\n" +
+                                                "El valor de la oferta es: $" + oferta + "\n" +
                                                 "A nombre de: " + nomC + " " + apellC + "\n" +
                                                 "---------------------------------------------------\n";
                                         String s = s1;

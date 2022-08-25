@@ -5,11 +5,8 @@
  */
 package petmarket;
 
-/**
- *
- * @author estga
- */
 public class Usuarios {
+
     public String Nombre, Apellidos;
     public int Cedula;
     public Rol rol;
@@ -57,4 +54,3 @@ public class Usuarios {
     }
 
 }
-    

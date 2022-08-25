@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class Menu {
 
@@ -21,6 +22,7 @@ public class Menu {
         boolean seguir = true;
 
         ImageIcon image = new ImageIcon("ticoCargas.png");
+        ImageIcon image3 = new ImageIcon("under.png");
 
         System.out.println("menuAdmin");
 
@@ -43,7 +45,8 @@ public class Menu {
 
                     case "3. Eliminar usuario":
                         System.out.println("Eliminar usuario");
-
+                        //eliminarCuenta();
+                        JOptionPane.showMessageDialog(null, "Under construction", "Sistema TicoCargas", JOptionPane.PLAIN_MESSAGE, image3);
                         break;
 
 
@@ -87,7 +90,7 @@ public class Menu {
 
         String msg = ("1. Consultas. \n" +
                 "2. Cotizar. \n" +
-                "3. Aceptar o rechazar cotizaciones. \n" +
+                "3. Aceptar o rechazar ofertas. \n" +
                 "4. Salir.");
 
         boolean seguir = true;
@@ -110,7 +113,7 @@ public class Menu {
                         Broker.cotizar(id);
                         break;
 
-                    case "3. Aceptar o rechazar cotizaciones":
+                    case "3. Aceptar o rechazar ofertas":
                         System.out.println("Aceptar o rechazar cotizaciones");
                         Broker.aceptarRechazar(id);
                         break;
@@ -223,6 +226,93 @@ public class Menu {
                 seguir = false;
             }
         }
+    }
+
+    public void eliminarCuenta()
+    {
+        ImageIcon image2 = new ImageIcon("Roles.png");
+
+        ////////////////////////
+        JTextField field1 = new JTextField();
+        JTextField field2 = new JTextField();
+        JTextField field3 = new JTextField();
+        JTextField field4 = new JTextField();
+
+        ///////////////////////////
+
+        Rol rol = null;
+
+        int value1 = 0, id = 0;
+
+        boolean listo = true;
+
+
+        if ( listo == true){
+
+            String cedula = JOptionPane.showInputDialog("Ingrese el número de cédula del usuario al cual desea eliminar cuenta: ");
+
+            if (cedula != null) {
+
+                try {
+                    value1 = Integer.parseInt(cedula);
+
+                    for (int i = 0; i < Registro.usuarios.size(); i++)
+                    {
+                        if (value1 == Registro.usuarios.get(i).getCedula() )
+                        {
+
+                            String user = Registro.usuarios.get(i).getUsername();
+                            id = Registro.usuarios.get(i).getCedula();
+                            int input = JOptionPane.showConfirmDialog(null, "Por confirme la eliminación de esta cuenta: " + user);
+
+                            if (input == 0)
+                            {
+                                rol = Registro.usuarios.get(i).getRol();
+                                if (rol.equals(Rol.Broker))
+                                {
+                                    for (int j = 0; j < Broker.ordenesCotB.size(); j++)
+                                    {
+                                        int cotB = Broker.ordenesCotB.get(j).getIDB();
+                                        if (id == cotB)
+                                        {
+                                            Broker.ordenesCotB.remove(j);
+                                            --j;
+
+                                        }
+                                    }
+                                    Registro.usuarios.remove(i);
+                                    JOptionPane.showMessageDialog(null, "Usuario " + user + " eliminado");
+
+                                } else if (rol.equals(Rol.Carrier)) {
+                                    for (int j = 0; j < Broker.tempB.size(); j++)
+                                    {
+                                        int cotC = Broker.tempB.get(j).getIDC();
+                                        if (id == cotC)
+                                        {
+                                            Broker.tempB.remove(j);
+                                            --j;
+                                        }
+                                    }
+                                    Registro.usuarios.remove(i);
+                                    JOptionPane.showMessageDialog(null, "Usuario " + user + " eliminado");
+                                }
+                            }
+                        }
+                    }
+
+                } catch (HeadlessException | NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Error! Formato inválido para el número de cédula.",
+                            "Sistema TicoCargas", JOptionPane.WARNING_MESSAGE);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null,"Cancelando, no se ha desabilitado ninguna cuenta de usuario.");
+            }
+
+        }
+
+
+
     }
 
 }

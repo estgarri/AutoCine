@@ -30,26 +30,35 @@ public class UsuariosMenu {
         while (seguir) {
             String res = (String) JOptionPane.showInputDialog(null, msg, "Sistema PetMarket - Menú de administración de cuentas",
                     JOptionPane.PLAIN_MESSAGE, imagens, opciones, opciones[0]);
-            switch (res) {
-                case "1. Create new user":
-                    System.out.println("Create new user");
-                    registro.regUsuario();
-                    break;
+            if (res != null){
+                switch (res) {
+                    case "1. Create new user":
+                        System.out.println("Create new user");
+                        registro.regUsuario();
+                        break;
 
-                case "2. Modify existing user's info":
-                    System.out.println("Modify existing user's info");
-                    registro.modificarUsuario();
-                    break;
+                    case "2. Modify existing user's info":
+                        System.out.println("Modify existing user's info");
+                        registro.modificarUsuario();
+                        break;
 
-                case "3. Admin Cliente":
-                    System.out.println("Admin Cliente");
+                    case "3. Eliminar cuenta de usuario":
+                        System.out.println("Admin Cliente");
 
-                    break;
+                        break;
 
-                case "4. Exit":
-                    System.out.println("Exit");
-                    seguir = false;
-                    break;
+                    case "4. Exit":
+                        System.out.println("Exit");
+                        seguir = false;
+                        break;
+                }
+            }
+            else {
+                System.out.println("Shutting down...");
+                JOptionPane.showMessageDialog(null, "Cerrando menú - Administración de cuentas",
+                        "Sistema PetMarket - Administración de cuentas", JOptionPane.WARNING_MESSAGE);
+                seguir = false;
+
             }
 
         }

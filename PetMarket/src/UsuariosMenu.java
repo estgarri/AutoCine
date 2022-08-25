@@ -34,8 +34,9 @@ public class UsuariosMenu {
                         registro.modificarUsuario();
                         break;
 
-                    case "3. Admin Cliente":
-                        System.out.println("Admin Cliente");
+                    case "3. Eliminar cuenta de usuario":
+                        System.out.println("Eliminar cuenta de usuario");
+                        Registro.eliminarUsuario();
 
                         break;
 

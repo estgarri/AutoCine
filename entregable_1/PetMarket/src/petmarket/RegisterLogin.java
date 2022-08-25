@@ -43,4 +43,5 @@ public class RegisterLogin {
         this.Nombre = nombre;
 
     }
+
 }

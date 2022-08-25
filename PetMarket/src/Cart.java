@@ -311,7 +311,7 @@ public class Cart {
 
         JOptionPane.showMessageDialog(null, printing,"Sistema TicoCargas - Carrito de compras", JOptionPane.WARNING_MESSAGE);
 
-        int option = JOptionPane.showConfirmDialog(null,"Click yes for checkout or no to continue shopping. \n" + "\n" + printing,
+        int option = JOptionPane.showConfirmDialog(null,"Click yes para imprimir recibo (Downloaded en directorio de PetMarket) or no para salir sin imprimir. \n" + "\n" + printing,
                 "Sistema PetMarket - Checkout", JOptionPane.YES_NO_OPTION);
 
         if (option == JOptionPane.YES_OPTION)
@@ -335,6 +335,7 @@ public class Cart {
 
                 cargas.write("\n" + printing);
                 borrarCarrito();
+                JOptionPane.showMessageDialog(null,"Archivo descargado en directorio de PetMarket");
                 return 1;
             } catch (IOException ex) {
                 Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
