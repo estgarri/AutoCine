@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="498650e1-c164-4afe-b085-38a1c10f950d" name="DESKTOP-CASA-2 Mapping">
+      <data-sources db="70ff7c92-d549-44d9-9380-548e1e3f00c6" />
+      <scope>
+        <node kind="database" negative="1">
+          <node kind="schema" negative="1" />
+        </node>
+      </scope>
+    </mapping>
+  </component>
+</project>
